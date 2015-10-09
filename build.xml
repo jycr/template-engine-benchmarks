@@ -169,6 +169,18 @@
             <classpath refid="project.class.path"/>
         </java>
     </target>
+	
+    <target name="jmustache" depends="compile">
+        <java classname="teb.JMustacheBenchmark" output="output/jmustache.html" logError="true" fork="true">
+            <jvmarg value="-server"/>
+            <sysproperty  key="out" value="${out}"/>
+            <sysproperty  key="wtimes" value="${wtimes}"/>
+            <sysproperty  key="ntimes" value="${ntimes}"/>
+            <sysproperty  key="buf" value="${buf}"/>
+            <classpath location="classes"/>
+            <classpath refid="project.class.path"/>
+        </java>
+    </target>
 
     <target name="handlebars" depends="compile">
         <java classname="teb.HandlebarsBenchmark" output="output/handlebars.html" logError="true" fork="true">
@@ -203,8 +215,8 @@
         </echo>
     </target>
 
-    <target name="selected" depends="header,stringbuilder,freemarker,velocity,beetl,rythm,jamon,httl,jmte,mustache,handlebars"></target>
-    <target name="all" depends="header,stringbuilder,freemarker,velocity,beetl,rythm,jamon,httl,jmte,jangod,thymeleaf,mustache,handlebars"></target>
+    <target name="selected" depends="header,stringbuilder,freemarker,velocity,beetl,rythm,jamon,httl,jmte,mustache,jmustache,handlebars"></target>
+    <target name="all" depends="header,stringbuilder,freemarker,velocity,beetl,rythm,jamon,httl,jmte,jangod,thymeleaf,mustache,jmustache,handlebars"></target>
 
     <target name="help">
         <echo>

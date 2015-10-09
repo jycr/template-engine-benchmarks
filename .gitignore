@@ -5,3 +5,6 @@ out/
 *.iml
 classes
 .gradle/
+.classpath
+.project
+.settings/

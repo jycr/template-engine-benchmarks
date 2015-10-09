@@ -1,20 +1,27 @@
 ==============================================================================
-              JAVA TEMPLATE ENGINE BENCHMARKER v1.0
+              JAVA TEMPLATE ENGINE BENCHMARKER jdk8
 ==============================================================================
 
 This is a benchmark program for a collection of Java template engines:
   * stringbuilder - the baseline. manually created page using StringBulder
-  * freemarker - v2.3.19
-  * velocity - v1.7
-  * rythm - v1.0-b2
-  * httl - 1.0.7
-  * beetl - 1.2
-  * jamon - 2.3
-  * jangod - no version info
-  * thymeleaf - 2.0.15
-  * mustache - 0.8.12
-  * handlebars - 2.2.0
+  * freemarker
+  * velocity
+  * rythm
+  * httl
+  * beetl
+  * jamon
+  * jangod
+  * thymeleaf
+  * mustache.java
+  * jmustache 
+  * handlebars
   
+The versions of template engines can be deduced by looking in the lib directory.
+Each template engine should have its version suffixed in the jar name.
+
+You can use `gradle update` to update the jars to their latest version but beware that beetl and jangod do not 
+have any entries in maven central and thus will be deleted.
+
 https://travis-ci.org/agentgt/template-engine-benchmarks
 
 You need apache ant to run the program, just type "ant" and it will start. 
@@ -48,4 +55,5 @@ The arguments should be passed in using property setting. e.g
 Should you have any suggestion or comments, please raise issue via 
 https://github.com/greenlaw110/template-engine-benchmarks/issues
 
-Note since jangod and thymeleaf is way slow than all others, they are not put into the default target. To benchmark jangod and thymeleaf, run `ant all`
+Note since jangod and thymeleaf is way slow than all others, they are not put into the default target. 
+To benchmark jangod and thymeleaf, run `ant all`

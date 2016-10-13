@@ -59,6 +59,11 @@ public class HandlebarsBenchmark extends _BenchBase {
                     }
                     return t;
                 }
+
+								@Override
+								public TemplateCache setReload(boolean arg0) {
+									return this;
+								}
             });
         }
 

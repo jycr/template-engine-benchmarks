@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>com.github.httl</groupId>
 			<artifactId>httl</artifactId>
-			<version>1.0.10</version>
+			<version>1.0.11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.freemarker</groupId>
@@ -38,22 +38,22 @@
 		<dependency>
 			<groupId>com.github.jknack</groupId>
 			<artifactId>handlebars</artifactId>
-			<version>2.2.3</version>
+			<version>4.0.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf</artifactId>
-			<version>2.1.4.RELEASE</version>
+			<version>3.0.2.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>com.ibeetl</groupId>
 			<artifactId>beetl</artifactId>
-			<version>2.2.5</version>
+			<version>2.5.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.samskivert</groupId>
 			<artifactId>jmustache</artifactId>
-			<version>1.11</version>
+			<version>1.13</version>
 		</dependency>
 		<dependency>
 			<groupId>org.rythmengine</groupId>
@@ -63,7 +63,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.12</version>
+			<version>1.7.21</version>
 		</dependency>
 		<dependency>
 			<groupId>com.floreysoft</groupId>
@@ -73,7 +73,7 @@
 		<dependency>
 			<groupId>com.github.spullara.mustache.java</groupId>
 			<artifactId>compiler</artifactId>
-			<version>0.9.1</version>
+			<version>0.9.4</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

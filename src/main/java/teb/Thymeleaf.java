@@ -18,7 +18,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.thymeleaf.templateresolver.TemplateResolver;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import teb.model.Stock;
 
@@ -30,7 +30,7 @@ public class Thymeleaf extends _BenchBase {
     public Thymeleaf() {
         System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "error");
         engine = new TemplateEngine();
-        TemplateResolver resolver = new ClassLoaderTemplateResolver();
+        ITemplateResolver resolver = new ClassLoaderTemplateResolver();
         engine.setTemplateResolver(resolver);
     }
 

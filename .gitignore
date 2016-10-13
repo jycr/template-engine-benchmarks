@@ -8,3 +8,4 @@ classes
 .classpath
 .project
 .settings/
+/target/

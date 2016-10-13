@@ -68,13 +68,7 @@ public class AllTest {
 	}
 
 	@Test
-	public void testJangod() throws Exception {
-		new Jangod().run();
-	}
-
-	@Test
 	public void testThymeleaf() throws Exception {
 		new Thymeleaf().run();
 	}
-
 }

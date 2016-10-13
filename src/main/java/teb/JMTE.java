@@ -4,15 +4,18 @@
  */
 package teb;
 
-import java.io.*;
-import java.nio.*;
-import java.nio.channels.*;
-import java.nio.charset.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.floreysoft.jmte.*;
+import com.floreysoft.jmte.Engine;
+
 import teb.model.Stock;
-
+import teb.util.ClasspathResourceUtils;
 
 public class JMTE extends _BenchBase {
 
@@ -78,22 +81,7 @@ public class JMTE extends _BenchBase {
     }
     
     private String readTemplateFile(String fileName) throws Exception {
-        File file = new File(fileName);
-        if (!file.exists()) {
-            throw new RuntimeException("template file " + fileName + " does not exists");
-        }
-        
-        // code comes from http://stackoverflow.com/questions/326390/how-to-create-a-java-string-from-the-contents-of-a-file
-        FileInputStream stream = new FileInputStream(new File(fileName));
-        try {
-            FileChannel fc = stream.getChannel();
-            MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-            /* Instead of using default, pass in a decoder. */
-            return Charset.defaultCharset().decode(bb).toString();
-        }
-        finally {
-            stream.close();
-        }
+        return ClasspathResourceUtils.getAsString(fileName);
     }
 
 }

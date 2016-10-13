@@ -4,17 +4,23 @@
  */
 package teb;
 
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.context.IContext;
-import org.thymeleaf.templateresolver.FileTemplateResolver;
-import teb.model.Stock;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.context.IContext;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
+
+import teb.model.Stock;
 
 
 public class Thymeleaf extends _BenchBase {
@@ -24,7 +30,7 @@ public class Thymeleaf extends _BenchBase {
     public Thymeleaf() {
         System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "error");
         engine = new TemplateEngine();
-        FileTemplateResolver resolver = new FileTemplateResolver();
+        TemplateResolver resolver = new ClassLoaderTemplateResolver();
         engine.setTemplateResolver(resolver);
     }
 

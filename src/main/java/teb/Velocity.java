@@ -4,15 +4,19 @@
  */
 package teb;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.List;
 
-import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+
 import teb.model.Stock;
 //import org.apache.velocity.tools.generic.EscapeTool;
-
 
 public class Velocity extends _BenchBase {
 
@@ -65,7 +69,7 @@ public class Velocity extends _BenchBase {
             //EscapeTool esc = new EscapeTool();
             //context.put("esc", esc);
             /// render template with context data
-            Template template = _engine.getTemplate("stocks.vm.html", "UTF-8");
+            Template template = _engine.getTemplate("templates/stocks.vm.html", "UTF-8");
 
             if (ntimes == 0) {
                 template.merge(context, w1);

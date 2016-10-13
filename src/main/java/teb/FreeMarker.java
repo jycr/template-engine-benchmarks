@@ -4,20 +4,29 @@
  */
 package teb;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import freemarker.template.*;
+import freemarker.cache.ClassTemplateLoader;
+import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
+import freemarker.template.DefaultObjectWrapperBuilder;
+import freemarker.template.Template;
+import freemarker.template.Version;
 import teb.model.Stock;
-import teb.util.DoNothingWriter;
 
 public class FreeMarker extends _BenchBase {
 
     private Configuration cfg;
     public FreeMarker() throws Exception {
-        cfg = new Configuration();
-        cfg.setDirectoryForTemplateLoading(new File("templates/"));
-        cfg.setObjectWrapper(new DefaultObjectWrapper());  
+        cfg = new Configuration(new Version(2, 3, 23));
+        cfg.setTemplateLoader(new ClassTemplateLoader(ClassLoader.getSystemClassLoader(),"templates"));
     }
 
     @Override

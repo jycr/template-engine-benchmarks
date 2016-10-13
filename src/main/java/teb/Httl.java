@@ -20,7 +20,7 @@ import java.util.Properties;
 public class Httl extends _BenchBase {
 
     private Engine engine;
-    private String templateFile = "/stocks.httl.html";
+    private String templateFile = "/templates/stocks.httl.html";
     
     public Httl() throws Exception {
         Properties prop = new Properties();

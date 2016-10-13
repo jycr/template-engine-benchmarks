@@ -1,7 +1,6 @@
 package teb;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -12,15 +11,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import teb.model.Stock;
-
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Parser;
 import com.github.jknack.handlebars.Template;
 import com.github.jknack.handlebars.cache.ConcurrentMapTemplateCache;
 import com.github.jknack.handlebars.cache.TemplateCache;
-import com.github.jknack.handlebars.io.FileTemplateLoader;
+import com.github.jknack.handlebars.io.ClassPathTemplateLoader;
+import com.github.jknack.handlebars.io.TemplateLoader;
 import com.github.jknack.handlebars.io.TemplateSource;
+
+import teb.model.Stock;
 
 public class HandlebarsBenchmark extends _BenchBase {
 
@@ -31,28 +31,8 @@ public class HandlebarsBenchmark extends _BenchBase {
     }
 
     private Handlebars fileHandleBars() {
-
-        // The handlebars template engine cache checks if the file has changed.
-        // This is unfair as half the engines just do simple string expansion.
-        // So we do a simple cache that assumes the file never changes.
-        // Also notice that we have to cache the template loader as the template
-        // loader is actually a bottleneck since it always checks if the file exists.
-        File templateDir = new File("templates/");
-        boolean flag = getFlag("handlebars.defaultTemplateLoader");
-        FileTemplateLoader templateLoader = flag ? new FileTemplateLoader(templateDir) : new FileTemplateLoader(
-                templateDir) {
-            Map<String, TemplateSource> cache = new ConcurrentHashMap<String, TemplateSource>();
-
-            @Override
-            public TemplateSource sourceAt(String uri) throws IOException {
-                TemplateSource t = cache.get(uri);
-                if (t == null) {
-                    t = super.sourceAt(uri);
-                    cache.put(uri, t);
-                }
-                return t;
-            }
-        };
+        final TemplateLoader templateLoader = new ClassPathTemplateLoader();
+        templateLoader.setPrefix("/templates/");
         templateLoader.setSuffix("");
         if (getFlag("handlebars.defaultCache")) {
             return new Handlebars(templateLoader).with(new ConcurrentMapTemplateCache());

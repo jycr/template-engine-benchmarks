@@ -8,13 +8,14 @@ import teb.model.Stock;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
+import com.github.mustachejava.resolver.ClasspathResolver;
 
 public class MustacheBenchmark extends _BenchBase {
 
     static MustacheFactory mustacheFactory;
 
     public MustacheBenchmark() {
-	mustacheFactory = new DefaultMustacheFactory(new File("templates/"));
+	mustacheFactory = new DefaultMustacheFactory(new ClasspathResolver("templates/"));
     }
 
     @Override

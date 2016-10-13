@@ -7,6 +7,7 @@ import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 
 import teb.model.Stock;
+import teb.util.ClasspathResourceUtils;
 
 public class JMustacheBenchmark extends _BenchBase {
 
@@ -57,7 +58,7 @@ public class JMustacheBenchmark extends _BenchBase {
     }
 
     private void render(Writer w0, Writer w1, int ntimes, Map<String,Object> root) throws IOException {
-        Template template = compiler.compile(new FileReader(new File("templates/", "stocks.mustache.html")));
+        Template template = compiler.compile(ClasspathResourceUtils.getReader("templates/stocks.mustache.html"));
         while (--ntimes >= 0) {
 
             if (ntimes == 0) {

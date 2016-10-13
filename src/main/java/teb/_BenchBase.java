@@ -102,7 +102,7 @@ abstract public class _BenchBase implements Runnable {
 
             shutdown();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
     }
 

@@ -4,59 +4,63 @@
  */
 package teb;
 
-import org.bee.tl.core.GroupTemplate;
-import org.bee.tl.core.Template;
-import org.bee.tl.core.io.OutputStreamByteWriter;
-import teb.model.Stock;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
 
+import org.beetl.core.Configuration;
+import org.beetl.core.GroupTemplate;
+import org.beetl.core.Template;
+import org.beetl.core.resource.FileResourceLoader;
+
+import teb.model.Stock;
 
 public class Beetl extends _BenchBase {
 
     GroupTemplate group;
     private String template = "templates/";
     
-    public Beetl() {
-        group = new GroupTemplate(new File(template));
-        group.config("<!--:", "-->", "${", "}");
-        group.setCharset("UTF-8");
-        group.enableOptimize();
-        group.enableDirectOutputByte();
-        OutputStreamByteWriter.DEFAULT_BYTE_BUFFER_SIZE = 2048;
+    public Beetl() throws IOException {
+        final Configuration cfg = Configuration.defaultConfiguration();
+        cfg.setStatementStart("<!--:");
+        cfg.setStatementEnd("-->");
+        cfg.setPlaceholderStart("${");
+        cfg.setPlaceholderEnd("}");
+        group = new GroupTemplate(new FileResourceLoader(template, "UTF-8"), cfg);
     }
     
+	@Override
     protected void shutdown() {
     }
 
     @Override
     public void execute(Writer w0, Writer w1, int ntimes, List<Stock> items) throws Exception {
         while (--ntimes >= 0) {
-            Template template = group.getFileTemplate("/stocks.beetl.html");
-            template.set("items", items);
+            Template template = group.getTemplate("/stocks.beetl.html");
+            template.binding("items", items);
             
             if (ntimes == 0) {
-                template.getText(w1);
+                template.renderTo(w1);
                 w1.close();
             }
-            else template.getText(w0);
+            else template.renderTo(w0);
         }
     }
     
-    private static Template t = null;
-
     @Override
     public void execute(OutputStream o0, OutputStream o1, int ntimes, List<Stock> items) throws Exception {
         while (--ntimes >= 0) {
-            Template template = group.getFileTemplate("/stocks.beetl.html");
-            template.set("items", items);
+            Template template = group.getTemplate("/stocks.beetl.html");
+            template.binding("items", items);
             
             if (ntimes == 0) {
-                template.getText(o1);
+                template.renderTo(o1);
                 o1.close();
             }
-            else template.getText(o0);
+            else template.renderTo(o0);
         }
     }
 
@@ -69,20 +73,20 @@ public class Beetl extends _BenchBase {
             w1 = new BufferedWriter(w1);
         }
         while (--ntimes >= 0) {
-            Template template = group.getFileTemplate("/stocks.beetl.html");
-            template.set("items", items);
+            Template template = group.getTemplate("/stocks.beetl.html");
+            template.binding("items", items);
             
             if (ntimes == 0) {
-                template.getText(w1);
+                template.renderTo(w1);
                 w1.close();
             }
-            else template.getText(w0);
+            else template.renderTo(w0);
         }
         
         return w1.toString();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Beetl().run();
     }
 }

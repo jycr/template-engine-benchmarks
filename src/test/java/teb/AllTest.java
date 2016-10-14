@@ -1,74 +1,65 @@
 package teb;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class AllTest {
-	@BeforeClass
-	public static void initSystemEnv() {
-		System.setProperty("out", "os");
-		System.setProperty("wtimes", "1");
-		System.setProperty("ntimes", "1");
-		System.setProperty("buf", "false");
-	}
-
 	@Test
 	public void testStringBuilder() throws Exception {
-		new StringBuilder().run();
+		new StringBuilderBenchmark().test();
 	}
 
 	@Test
 	public void testFreeMarker() throws Exception {
-		new FreeMarker().run();
+		new FreemarkerBenchmark().test();
 	}
 
 	@Test
 	public void testVelocity() throws Exception {
-		new Velocity().run();
+		new VelocityBenchmark().test();
 	}
 
 	@Test
 	public void testBeetl() throws Exception {
-		new Beetl().run();
+		new BeetlBenchmark().test();
 	}
 
 	@Test
 	public void testRythm() throws Exception {
-		new Rythm().run();
+		new RythmBenchmark().test();
 	}
 
 	@Test
 	public void testJamon() throws Exception {
-		new Jamon().run();
+		new JamonBenchmark().test();
 	}
 
 	@Test
 	public void testHttl() throws Exception {
-		new Httl().run();
+		new HttlBenchmark().test();
 	}
 
 	@Test
 	public void testJMTE() throws Exception {
-		new JMTE().run();
+		new JmteBenchmark().test();
 	}
 
 	@Test
 	public void testMustacheBenchmark() throws Exception {
-		new MustacheBenchmark().run();
+		new MustacheBenchmark().test();
 	}
 
 	@Test
 	public void testJMustacheBenchmark() throws Exception {
-		new JMustacheBenchmark().run();
+		new JMustacheBenchmark().test();
 	}
 
 	@Test
 	public void testHandlebarsBenchmark() throws Exception {
-		new HandlebarsBenchmark().run();
+		new HandlebarsBenchmark().test();
 	}
 
 	@Test
 	public void testThymeleaf() throws Exception {
-		new Thymeleaf().run();
+		new ThymeleafBenchmark().test();
 	}
 }

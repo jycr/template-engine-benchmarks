@@ -9,3 +9,7 @@ classes
 .project
 .settings/
 /target/
+/BenchmarkList
+/CompilerHints
+/dependency-reduced-pom.xml
+/.factorypath

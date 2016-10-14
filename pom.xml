@@ -103,6 +103,43 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.jamon</groupId>
+				<artifactId>jamon-maven-plugin</artifactId>
+				<version>2.4.2</version>
+				<executions>
+					<execution>
+						<id>jamon-generate-sources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>translate</goal>
+						</goals>
+						<configuration>
+							<templateSourceDir>${project.basedir}/src/main/resources</templateSourceDir>
+							<templateOutputDir>${project.build.directory}/generated-sources/jamon</templateOutputDir>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.12</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/jamon</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>2.2</version>
@@ -136,5 +173,39 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.jamon</groupId>
+										<artifactId>
+											jamon-maven-plugin
+										</artifactId>
+										<versionRange>
+											[2.4.2,)
+										</versionRange>
+										<goals>
+											<goal>translate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>

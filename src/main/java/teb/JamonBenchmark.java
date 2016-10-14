@@ -11,6 +11,9 @@ import org.openjdk.jmh.annotations.Benchmark;
 
 import teb.model.Stock;
 
+/**
+ * @see "http://www.jamon.org"
+ */
 public class JamonBenchmark extends BaseBenchmark {
 	@Override
 	public void setup() throws Exception {
@@ -19,9 +22,10 @@ public class JamonBenchmark extends BaseBenchmark {
 	@Override
 	@Benchmark
 	public void run() {
+		@SuppressWarnings("unchecked")
 		final List<Stock> items = (List<Stock>) getParams().get("items");
 		try {
-			new jamon.stocks().render(getOutput(), items);
+			new templates.stocks().render(getOutput(), items);
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}

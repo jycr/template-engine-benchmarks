@@ -15,7 +15,7 @@ public class JMustacheBenchmark extends BaseBenchmark {
 	@Override
 	public void setup() {
 		compiler = Mustache.compiler();
-		template = compiler.compile(ClasspathResourceUtils.getReader(TEMPLATE_DIR + "/" + getTemplateName("mustache")));
+		template = compiler.compile(ClasspathResourceUtils.getReader(getTemplateName("mustache.html")));
 	}
 
 	@Override

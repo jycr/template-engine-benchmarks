@@ -61,7 +61,11 @@ public abstract class BaseBenchmark implements Runnable {
 	public abstract void setup() throws Exception;
 
 	public String getTemplateName(final String templateSuffix) {
-		return templateName + "." + templateSuffix + ".html";
+		return templateName + "." + templateSuffix;
+	}
+
+	public String getTemplatePath(final String templateSuffix) {
+		return TEMPLATE_DIR + "/" + getTemplateName(templateSuffix);
 	}
 
 	public void setTemplateName(final String templateName) {

@@ -24,7 +24,7 @@ public class FreemarkerBenchmark extends BaseBenchmark {
 		cfg = new Configuration(new Version(2, 3, 23));
 		cfg.setTemplateLoader(new ClassTemplateLoader(ClassLoader.getSystemClassLoader(), TEMPLATE_DIR));
 		try {
-			template = cfg.getTemplate(getTemplateName("ftl"));
+			template = cfg.getTemplate(getTemplateName("ftl.html"));
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}

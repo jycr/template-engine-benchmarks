@@ -133,15 +133,17 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 			+ " </body>\n"
 			+ "</html>\n";
 
+	private String templateName;
+
 	@Override
 	public void setup() throws Exception {
+		templateName = getTemplateName("native.html");
 	}
 
 	@Override
 	@Benchmark
 	public void run() {
-		final String templateName = getTemplateName("stringbuilder");
-		if ("stocks.stringbuilder.html".equals(templateName)) {
+		if ("stocks.native.html".equals(templateName)) {
 			try {
 				renderStocks(getOutput());
 			} catch (final IOException e) {

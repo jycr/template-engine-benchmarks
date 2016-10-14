@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.TemplateSpec;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.context.IContext;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -15,13 +16,13 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 public class ThymeleafBenchmark extends BaseBenchmark {
 
 	private TemplateEngine engine;
-	private String template;
+	private TemplateSpec template;
 
 	@Override
 	public void setup() {
 		engine = new TemplateEngine();
 		engine.setTemplateResolver(new ClassLoaderTemplateResolver());
-		template = TEMPLATE_DIR + "/" + getTemplateName("thymeleaf");
+		template = new TemplateSpec(getTemplatePath("thymeleaf.html"), null, null, null);
 	}
 
 	@Override

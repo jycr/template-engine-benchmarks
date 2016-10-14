@@ -25,7 +25,7 @@ public class HttlBenchmark extends BaseBenchmark {
 		prop.setProperty("filter", "null");
 		prop.setProperty("logger", "null");
 		engine = Engine.getEngine(prop);
-		template = engine.getTemplate("/" + TEMPLATE_DIR + "/" + getTemplateName("httl"));
+		template = engine.getTemplate(getTemplatePath("httl.html"));
 	}
 
 	@Override

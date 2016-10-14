@@ -20,7 +20,7 @@ public class HandlebarsBenchmark extends BaseBenchmark {
 		templateLoader.setPrefix("/" + TEMPLATE_DIR + "/");
 		templateLoader.setSuffix("");
 		handlebars = new Handlebars(templateLoader).with(new ConcurrentMapTemplateCache());
-		template = handlebars.compile(getTemplateName("handlebars"));
+		template = handlebars.compile(getTemplateName("handlebars.html"));
 	}
 
 	@Override

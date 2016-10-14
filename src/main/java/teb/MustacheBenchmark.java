@@ -14,8 +14,8 @@ public class MustacheBenchmark extends BaseBenchmark {
 
 	@Override
 	public void setup() {
-		mustacheFactory = new DefaultMustacheFactory(new ClasspathResolver(TEMPLATE_DIR + "/"));
-		template = mustacheFactory.compile(getTemplateName("mustache"));
+		mustacheFactory = new DefaultMustacheFactory(new ClasspathResolver());
+		template = mustacheFactory.compile(getTemplatePath("mustache.html"));
 	}
 
 	@Override

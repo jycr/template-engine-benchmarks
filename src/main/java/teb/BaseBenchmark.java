@@ -21,11 +21,11 @@ import org.openjdk.jmh.annotations.Warmup;
 import teb.model.Stock;
 import teb.util.DoNothingWriter;
 
-@Fork(1)
+@Fork(0)
 @Warmup(iterations = 3)
 @Measurement(iterations = 3)
 @BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Benchmark)
 public abstract class BaseBenchmark implements Runnable {
 

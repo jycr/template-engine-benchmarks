@@ -5,7 +5,7 @@ import org.junit.Test;
 public class AllTest {
 	@Test
 	public void testStringBuilder() throws Exception {
-		new StringBuilderBenchmark().test();
+		new JavaNativeBenchmark().test();
 	}
 
 	@Test

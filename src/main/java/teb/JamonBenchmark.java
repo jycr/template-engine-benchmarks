@@ -7,6 +7,8 @@ package teb;
 import java.io.IOException;
 import java.util.List;
 
+import org.openjdk.jmh.annotations.Benchmark;
+
 import teb.model.Stock;
 
 public class JamonBenchmark extends BaseBenchmark {
@@ -15,6 +17,7 @@ public class JamonBenchmark extends BaseBenchmark {
 	}
 
 	@Override
+	@Benchmark
 	public void run() {
 		final List<Stock> items = (List<Stock>) getParams().get("items");
 		try {

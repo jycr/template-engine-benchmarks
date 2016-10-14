@@ -7,6 +7,7 @@ package teb;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.openjdk.jmh.annotations.Benchmark;
 import org.rythmengine.RythmEngine;
 
 import teb.util.ClasspathResourceUtils;
@@ -31,6 +32,7 @@ public class RythmBenchmark extends BaseBenchmark {
 	}
 
 	@Override
+	@Benchmark
 	public void run() {
 		engine.render(getOutput(), template, getParams());
 	}

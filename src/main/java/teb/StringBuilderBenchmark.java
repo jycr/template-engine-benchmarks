@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.openjdk.jmh.annotations.Benchmark;
 
 import teb.model.Stock;
 
@@ -17,6 +18,7 @@ public class StringBuilderBenchmark extends BaseBenchmark {
 	}
 
 	@Override
+	@Benchmark
 	public void run() {
 		final String templateName = getTemplateName("stringbuilder");
 		if ("stocks.stringbuilder.html".equals(templateName)) {

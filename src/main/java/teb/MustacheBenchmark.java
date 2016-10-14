@@ -1,5 +1,7 @@
 package teb;
 
+import org.openjdk.jmh.annotations.Benchmark;
+
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
@@ -17,6 +19,7 @@ public class MustacheBenchmark extends BaseBenchmark {
 	}
 
 	@Override
+	@Benchmark
 	public void run() {
 		template.execute(getOutput(), getParams());
 	}

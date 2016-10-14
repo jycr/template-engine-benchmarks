@@ -30,8 +30,8 @@ public class FreemarkerBenchmark extends BaseBenchmark {
 		}
 	}
 
-	@Benchmark
 	@Override
+	@Benchmark
 	public void run() {
 		try {
 			template.process(getParams(), getOutput());

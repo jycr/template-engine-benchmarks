@@ -45,7 +45,6 @@
 		</dependency>
 		<!-- Template-engines dependencies -->
 		<dependency>
-			<!-- // TODO à remplacer par : com.jamonapi -->
 			<groupId>org.jamon</groupId>
 			<artifactId>jamon-runtime</artifactId>
 			<version>2.4.1</version>

@@ -52,8 +52,8 @@ thead {
    </thead>
    <tbody>
 <!--: for(item in items){  --> 
-    <tr class="${decode(item_index%2,0,"odd","even")}">
-     <td style="text-align: center">${item_index}</td>
+    <tr class="${decode(itemLP.index%2,0,"odd","even")}">
+     <td style="text-align: center">${itemLP.index}</td>
      <td>
       <a href="/stocks/${item.symbol}">${item.symbol}</a>
      </td>

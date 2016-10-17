@@ -1,5 +1,6 @@
 package teb.util;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,11 +12,11 @@ import org.apache.commons.io.IOUtils;
 public class ClasspathResourceUtils {
 	private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
-	public static Reader getReader(final String name, final String encoding) {
+	public static Reader getReader(final String name, final String encoding) throws FileNotFoundException {
 		return new InputStreamReader(getStream(name), Charset.forName(encoding));
 	}
 
-	public static Reader getReader(final String name) {
+	public static Reader getReader(final String name) throws FileNotFoundException {
 		return new InputStreamReader(getStream(name), DEFAULT_CHARSET);
 	}
 
@@ -31,11 +32,15 @@ public class ClasspathResourceUtils {
 		}
 	}
 
-	private static InputStream getStream(final String name) {
-		final InputStream result = ClasspathResourceUtils.class.getClassLoader().getResourceAsStream(name);
+	private static InputStream getStream(final String name) throws FileNotFoundException {
+		InputStream result = ClasspathResourceUtils.class.getClassLoader().getResourceAsStream(name);
 		if (result != null) {
 			return result;
 		}
-		return ClassLoader.getSystemResourceAsStream(name);
+		result = ClassLoader.getSystemResourceAsStream(name);
+		if (result != null) {
+			return result;
+		}
+		throw new FileNotFoundException(name);
 	}
 }

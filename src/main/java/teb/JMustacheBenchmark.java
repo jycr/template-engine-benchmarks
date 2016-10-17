@@ -1,11 +1,11 @@
 package teb;
 
+import java.io.FileNotFoundException;
+
 import org.openjdk.jmh.annotations.Benchmark;
 
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
-
-import teb.util.ClasspathResourceUtils;
 
 public class JMustacheBenchmark extends BaseBenchmark {
 
@@ -13,9 +13,9 @@ public class JMustacheBenchmark extends BaseBenchmark {
 	private Template template;
 
 	@Override
-	public void setup() {
+	public void setup() throws FileNotFoundException {
 		compiler = Mustache.compiler();
-		template = compiler.compile(ClasspathResourceUtils.getReader(getTemplateName("mustache.html")));
+		template = compiler.compile(getTemplateReader("mustache.html"));
 	}
 
 	@Override

@@ -1,7 +1,8 @@
 package teb;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
 import teb.model.Stock;
+import teb.util.ClasspathResourceUtils;
 import teb.util.DoNothingWriter;
 
 @Fork(0)
@@ -68,6 +70,10 @@ public abstract class BaseBenchmark implements Runnable {
 		return TEMPLATE_DIR + "/" + getTemplateName(templateSuffix);
 	}
 
+	public Reader getTemplateReader(final String templateSuffix) throws FileNotFoundException {
+		return ClasspathResourceUtils.getReader(getTemplatePath(templateSuffix));
+	}
+
 	public void setTemplateName(final String templateName) {
 		this.templateName = templateName;
 	}
@@ -76,18 +82,14 @@ public abstract class BaseBenchmark implements Runnable {
 		this.output = output;
 	}
 
-	public void test(final Writer writer) {
-		setTemplateName("stocks");
+	public void test(final String templateName, final Writer writer) {
+		setTemplateName(templateName);
 		init();
 		setOutput(writer);
 		run();
 	}
 
 	public void test() {
-		try (Writer console = new OutputStreamWriter(System.out)) {
-			test(console);
-		} catch (final IOException e) {
-			throw new RuntimeException();
-		}
+		test("stocks", new OutputStreamWriter(System.out));
 	}
 }

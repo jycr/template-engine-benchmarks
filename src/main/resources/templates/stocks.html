@@ -1,72 +1,182 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
- <head>
-  <title>Stock Prices</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
-  <meta http-equiv="Content-Script-Type" content="text/javascript" />
-  <link rel="shortcut icon" href="/images/favicon.ico" />
-  <link rel="stylesheet" type="text/css" href="/css/style.css" media="all" />
-  <script type="text/javascript" src="/js/util.js"></script>
-  <style type="text/css">
-  /*<![CDATA[*/
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<title>Stock Prices</title>
+</head>
+<body>
+	<h1>Stock Prices</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>symbol</th>
+				<th>name</th>
+				<th>price</th>
+				<th>change</th>
+				<th>ratio</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><a href="/stocks/ADBE">ADBE</a></td>
+				<td><a href="http://www.adobe.com">Adobe Systems</a></td>
+				<td>39.26</td>
+				<td>0.13</td>
+				<td>0.33</td>
+			</tr>
+			<tr>
+				<td><a href="/stocks/AMD">AMD</a></td>
+				<td><a href="http://www.amd.com">Advanced Micro Devices</a></td>
+				<td>16.22</td>
+				<td>0.17</td>
+				<td>1.06</td>
+			</tr>
+			<tr>
 
-body {
-    color: #333333;
-    line-height: 150%;
-}
+				<td><a href="/stocks/AMZN">AMZN</a></td>
+				<td><a href="http://www.amazon.com">Amazon.com</a></td>
+				<td>36.85</td>
+				<td>-0.23</td>
+				<td>-0.62</td>
+			</tr>
+			<tr>
 
-thead {
-    font-weight: bold;
-    background-color: #CCCCCC;
-}
+				<td><a href="/stocks/AAPL">AAPL</a></td>
+				<td><a href="http://www.apple.com">Apple</a></td>
+				<td>85.38</td>
+				<td>-0.87</td>
+				<td>-1.01</td>
+			</tr>
+			<tr>
 
-.odd {
-    background-color: #FFCCCC;
-}
+				<td><a href="/stocks/BEAS">BEAS</a></td>
+				<td><a href="http://www.bea.com">BEA Systems</a></td>
+				<td>12.46</td>
+				<td>0.09</td>
+				<td>0.73</td>
+			</tr>
+			<tr>
 
-.even {
-    background-color: #CCCCFF;
-}
+				<td><a href="/stocks/CA">CA</a></td>
+				<td><a href="http://www.ca.com">CA</a></td>
+				<td>24.66</td>
+				<td>0.38</td>
+				<td>1.57</td>
+			</tr>
+			<tr>
 
-.minus {
-    color: #FF0000;
-}
+				<td><a href="/stocks/CSCO">CSCO</a></td>
+				<td><a href="http://www.cisco.com">Cisco Systems</a></td>
+				<td>26.35</td>
+				<td>0.13</td>
+				<td>0.5</td>
+			</tr>
+			<tr>
 
-  /*]]>*/
-  </style>
+				<td><a href="/stocks/DELL">DELL</a></td>
+				<td><a href="http://www.dell.com/">Dell</a></td>
+				<td>23.73</td>
+				<td>-0.42</td>
+				<td>-1.74</td>
+			</tr>
+			<tr>
 
- </head>
+				<td><a href="/stocks/EBAY">EBAY</a></td>
+				<td><a href="http://www.ebay.com">eBay</a></td>
+				<td>31.65</td>
+				<td>-0.8</td>
+				<td>-2.47</td>
+			</tr>
+			<tr>
 
- <body>
+				<td><a href="/stocks/GOOG">GOOG</a></td>
+				<td><a href="http://www.google.com">Google</a></td>
+				<td>495.84</td>
+				<td>7.75</td>
+				<td>1.59</td>
+			</tr>
+			<tr>
 
-  <h1>Stock Prices</h1>
+				<td><a href="/stocks/HPQ">HPQ</a></td>
+				<td><a href="http://www.hp.com">Hewlett-Packard</a></td>
+				<td>41.69</td>
+				<td>-0.02</td>
+				<td>-0.05</td>
+			</tr>
+			<tr>
 
-  <table>
-   <thead>
-    <tr>
-     <th>#</th><th>symbol</th><th>name</th><th>price</th><th>change</th><th>ratio</th>
-    </tr>
-   </thead>
-   <tbody>
-    <tr class="odd" id="mark:items">
-     <td style="text-align: center" id="mark:index">1</td>
-     <td>
-      <a href="/stocks/#{item.symbol}" id="mark:symbol">AAPL</a>
-     </td>
-     <td>
-      <a href="#{item.url}" id="mark:url">Apple, Inc.</a>
-     </td>
-     <td>
-      <strong id="mark:price">1000.00</strong>
-     </td>
-     <td class="minus" id="mark:change">-10.00</td>
-     <td class="minus" id="mark:ratio">-1.00</td>
-    </tr>
-   </tbody>
-  </table>
+				<td><a href="/stocks/IBM">IBM</a></td>
+				<td><a href="http://www.ibm.com">IBM</a></td>
+				<td>97.45</td>
+				<td>-0.06</td>
+				<td>-0.06</td>
+			</tr>
+			<tr>
 
- </body>
+				<td><a href="/stocks/INTC">INTC</a></td>
+				<td><a href="http://www.intel.com">Intel</a></td>
+				<td>20.53</td>
+				<td>-0.07</td>
+				<td>-0.34</td>
+			</tr>
+			<tr>
+
+				<td><a href="/stocks/JNPR">JNPR</a></td>
+				<td><a href="http://www.juniper.net/">Juniper Networks</a></td>
+				<td>18.96</td>
+				<td>0.5</td>
+				<td>2.71</td>
+			</tr>
+			<tr>
+
+				<td><a href="/stocks/MSFT">MSFT</a></td>
+				<td><a href="http://www.microsoft.com">Microsoft</a></td>
+				<td>30.6</td>
+				<td>0.15</td>
+				<td>0.49</td>
+			</tr>
+			<tr>
+
+				<td><a href="/stocks/ORCL">ORCL</a></td>
+				<td><a href="http://www.oracle.com">Oracle</a></td>
+				<td>17.15</td>
+				<td>0.17</td>
+				<td>1.0</td>
+			</tr>
+			<tr>
+
+				<td><a href="/stocks/SAP">SAP</a></td>
+				<td><a href="http://www.sap.com">SAP</a></td>
+				<td>46.2</td>
+				<td>-0.16</td>
+				<td>-0.35</td>
+			</tr>
+			<tr>
+
+				<td><a href="/stocks/STX">STX</a></td>
+				<td><a href="http://www.seagate.com/">Seagate Technology</a></td>
+				<td>27.35</td>
+				<td>-0.36</td>
+				<td>-1.3</td>
+			</tr>
+			<tr>
+
+				<td><a href="/stocks/SUNW">SUNW</a></td>
+				<td><a href="http://www.sun.com">Sun Microsystems</a></td>
+				<td>6.33</td>
+				<td>-0.01</td>
+				<td>-0.16</td>
+			</tr>
+			<tr>
+
+				<td><a href="/stocks/YHOO">YHOO</a></td>
+				<td><a href="http://www.yahoo.com">Yahoo</a></td>
+				<td>28.04</td>
+				<td>-0.17</td>
+				<td>-0.6</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
 </html>

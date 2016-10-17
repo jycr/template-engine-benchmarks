@@ -10,17 +10,13 @@ import java.util.List;
 import org.openjdk.jmh.annotations.Benchmark;
 
 import teb.model.Stock;
-import templates.stocks;
 
 /**
  * @see "http://www.jamon.org"
  */
 public class JamonBenchmark extends BaseBenchmark {
-	private stocks template;
-
 	@Override
 	public void setup() throws Exception {
-		template = new templates.stocks();
 	}
 
 	@Override
@@ -29,7 +25,7 @@ public class JamonBenchmark extends BaseBenchmark {
 		@SuppressWarnings("unchecked")
 		final List<Stock> items = (List<Stock>) getParams().get("items");
 		try {
-			template.render(getOutput(), items);
+			new templates.stocks().render(getOutput(), items);
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}

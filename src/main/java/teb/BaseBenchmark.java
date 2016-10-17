@@ -24,8 +24,8 @@ import teb.util.ClasspathResourceUtils;
 import teb.util.DoNothingWriter;
 
 @Fork(0)
-@Warmup(iterations = 15)
-@Measurement(iterations = 15)
+@Warmup(iterations = 10)
+@Measurement(iterations = 10)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Benchmark)

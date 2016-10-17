@@ -99,6 +99,11 @@ public class StocksTemplateTest {
 	}
 
 	public void test(final BaseBenchmark b) throws Exception {
+		testSingle(b);
+		testTwice(b);
+	}
+
+	public void testSingle(final BaseBenchmark b) throws Exception {
 		final StringWriter output = new StringWriter();
 		b.test(templateName, output);
 		final String reason = templateName + " with " + b.getClass().getSimpleName();
@@ -117,4 +122,14 @@ public class StocksTemplateTest {
 			throw new Exception("Exception when test: " + reason + "\n" + result, e);
 		}
 	}
+
+	public void testTwice(final BaseBenchmark b) throws Exception {
+		final StringWriter output = new StringWriter();
+		b.setTemplateName(templateName);
+		b.init();
+		b.setOutput(output);
+		b.run();
+		b.run();
+	}
+
 }

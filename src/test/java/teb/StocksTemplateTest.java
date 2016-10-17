@@ -29,6 +29,11 @@ public class StocksTemplateTest {
 	}
 
 	@Test
+	public void testTrimouBenchmark() throws Exception {
+		test(new TrimouBenchmark());
+	}
+
+	@Test
 	public void testXsltBenchmark() throws Exception {
 		test(new XsltBenchmark());
 	}

@@ -30,7 +30,7 @@ public class BeetlBenchmark extends BaseBenchmark {
 		cfg.setPlaceholderStart("${");
 		cfg.setPlaceholderEnd("}");
 		final GroupTemplate group = new GroupTemplate(new ClasspathResourceLoader(this.getClass().getClassLoader(), "", "UTF-8"), cfg);
-		template = group.getTemplate(getTemplatePath("beetl.html"));
+		template = group.getTemplate(getTemplatePath(".beetl.html"));
 	}
 
 	@Override

@@ -47,7 +47,7 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 
 	@Override
 	public void setup() throws Exception {
-		templateName = getTemplateName("native.html");
+		templateName = getTemplateName(".native.html");
 	}
 
 	@Override

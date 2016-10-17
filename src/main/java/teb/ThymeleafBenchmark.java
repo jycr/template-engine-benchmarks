@@ -22,7 +22,7 @@ public class ThymeleafBenchmark extends BaseBenchmark {
 	public void setup() {
 		engine = new TemplateEngine();
 		engine.setTemplateResolver(new ClassLoaderTemplateResolver(this.getClass().getClassLoader()));
-		template = new TemplateSpec(getTemplatePath("thymeleaf.html"), null, null, null);
+		template = new TemplateSpec(getTemplatePath(".thymeleaf.html"), null, null, null);
 	}
 
 	@Override

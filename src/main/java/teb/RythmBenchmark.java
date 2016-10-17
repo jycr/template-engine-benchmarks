@@ -24,7 +24,7 @@ public class RythmBenchmark extends BaseBenchmark {
 		p.put("feature.smart_escape.enabled", false);
 		p.put("feature.transform.enabled", false);
 		engine = new RythmEngine(p);
-		template = ClasspathResourceUtils.getAsString(getTemplatePath("rythm.html"));
+		template = ClasspathResourceUtils.getAsString(getTemplatePath(".rythm.html"));
 	}
 
 	protected void shutdown() {

@@ -15,7 +15,7 @@ public class JMustacheBenchmark extends BaseBenchmark {
 	@Override
 	public void setup() throws FileNotFoundException {
 		compiler = Mustache.compiler();
-		template = compiler.compile(getTemplateReader("mustache.html"));
+		template = compiler.compile(getTemplateReader(".mustache.html"));
 	}
 
 	@Override

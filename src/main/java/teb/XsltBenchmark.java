@@ -29,7 +29,7 @@ public class XsltBenchmark extends BaseBenchmark {
 
 	@Override
 	public void setup() throws Exception {
-		final Source xsltSource = new StreamSource(getTemplateReader("xslt"));
+		final Source xsltSource = new StreamSource(getTemplateReader(".xslt"));
 		final TransformerFactory transFact = TransformerFactory.newInstance();
 		template = transFact.newTemplates(xsltSource);
 		context = JAXBContext.newInstance(Model.class);

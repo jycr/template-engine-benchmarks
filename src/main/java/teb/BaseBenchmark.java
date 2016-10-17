@@ -63,7 +63,7 @@ public abstract class BaseBenchmark implements Runnable {
 	public abstract void setup() throws Exception;
 
 	public String getTemplateName(final String templateSuffix) {
-		return templateName + "." + templateSuffix;
+		return templateName + templateSuffix;
 	}
 
 	public String getTemplatePath(final String templateSuffix) {

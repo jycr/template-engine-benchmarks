@@ -21,7 +21,7 @@ public class ThymeleafBenchmark extends BaseBenchmark {
 	@Override
 	public void setup() {
 		engine = new TemplateEngine();
-		engine.setTemplateResolver(new ClassLoaderTemplateResolver());
+		engine.setTemplateResolver(new ClassLoaderTemplateResolver(this.getClass().getClassLoader()));
 		template = new TemplateSpec(getTemplatePath("thymeleaf.html"), null, null, null);
 	}
 

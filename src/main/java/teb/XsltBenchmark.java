@@ -19,6 +19,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.openjdk.jmh.annotations.Benchmark;
+
 import teb.model.Stock;
 
 public class XsltBenchmark extends BaseBenchmark {
@@ -46,6 +48,7 @@ public class XsltBenchmark extends BaseBenchmark {
 	}
 
 	@Override
+	@Benchmark
 	public void run() {
 		try {
 			final JAXBSource input = new JAXBSource(

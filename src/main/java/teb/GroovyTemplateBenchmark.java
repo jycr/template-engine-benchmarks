@@ -2,6 +2,8 @@ package teb;
 
 import java.io.IOException;
 
+import org.openjdk.jmh.annotations.Benchmark;
+
 import groovy.text.GStringTemplateEngine;
 import groovy.text.Template;
 import teb.util.ClasspathResourceUtils;
@@ -22,6 +24,7 @@ public class GroovyTemplateBenchmark extends BaseBenchmark {
 	}
 
 	@Override
+	@Benchmark
 	public void run() {
 		try {
 			template

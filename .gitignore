@@ -14,3 +14,4 @@ classes
 /dependency-reduced-pom.xml
 /.factorypath
 /run.log
+/target/

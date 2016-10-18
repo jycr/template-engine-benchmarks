@@ -13,6 +13,9 @@
 		<maven.compiler.encoding>${project.build.sourceEncoding}</maven.compiler.encoding>
 		<maven.compiler.source>${maven.compiler.target}</maven.compiler.source>
 		<jmh.version>1.15</jmh.version>
+		<jasper.version>8.0.38</jasper.version>
+		<generated-sources>${project.build.directory}/generated-sources</generated-sources>
+		<template-dir>${project.basedir}/src/main/resources</template-dir>
 	</properties>
 	<dependencies>
 		<!-- Current project dependencies -->
@@ -119,10 +122,68 @@
 			<artifactId>trimou-core</artifactId>
 			<version>2.1.0.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<version>8.0.38</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-el</artifactId>
+			<version>8.0.38</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
+				<!-- JSP class generation -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>pre-compile-jsp</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<target>
+								<taskdef name="jasper" classname="org.apache.jasper.JspC"
+									classpathref="maven.plugin.classpath" />
+								<mkdir dir="${generated-sources}/jasper-jsp" />
+								<jasper uriroot="${template-dir}" outputDir="${generated-sources}/jasper-jsp"
+									package="teb.jasper" trimSpaces="true" validateTld="false"
+									validateXml="false" compile="false" genStringAsCharArray="true" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.tomcat.embed</groupId>
+						<artifactId>tomcat-embed-jasper</artifactId>
+						<version>${jasper.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.tomcat.embed</groupId>
+						<artifactId>tomcat-embed-logging-juli</artifactId>
+						<version>${jasper.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<!-- Jamon class generation -->
 				<groupId>org.jamon</groupId>
 				<artifactId>jamon-maven-plugin</artifactId>
 				<version>2.4.2</version>
@@ -134,8 +195,8 @@
 							<goal>translate</goal>
 						</goals>
 						<configuration>
-							<templateSourceDir>${project.basedir}/src/main/resources</templateSourceDir>
-							<templateOutputDir>${project.build.directory}/generated-sources/jamon</templateOutputDir>
+							<templateSourceDir>${template-dir}</templateSourceDir>
+							<templateOutputDir>${generated-sources}/jamon</templateOutputDir>
 						</configuration>
 					</execution>
 				</executions>
@@ -153,7 +214,8 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>${project.build.directory}/generated-sources/jamon</source>
+								<source>${generated-sources}/jamon</source>
+								<source>${generated-sources}/jasper-jsp</source>
 							</sources>
 						</configuration>
 					</execution>
@@ -207,14 +269,23 @@
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>org.jamon</groupId>
-										<artifactId>
-											jamon-maven-plugin
-										</artifactId>
-										<versionRange>
-											[2.4.2,)
-										</versionRange>
+										<artifactId>jamon-maven-plugin</artifactId>
+										<versionRange>[2.4.2,)</versionRange>
 										<goals>
 											<goal>translate</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-antrun-plugin</artifactId>
+										<versionRange>[1.8,)</versionRange>
+										<goals>
+											<goal>run</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>

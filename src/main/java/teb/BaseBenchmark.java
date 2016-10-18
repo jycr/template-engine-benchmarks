@@ -1,6 +1,7 @@
 package teb;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
@@ -82,14 +83,19 @@ public abstract class BaseBenchmark implements Runnable {
 		this.output = output;
 	}
 
-	public void test(final String templateName, final Writer writer) {
+	public void test(final String templateName, final Writer writer) throws IOException {
 		setTemplateName(templateName);
 		init();
 		setOutput(writer);
 		run();
+		writer.flush();
 	}
 
 	public void test() {
-		test("stocks", new OutputStreamWriter(System.out));
+		try {
+			test("stocks", new OutputStreamWriter(System.out));
+		} catch (final IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

@@ -20,7 +20,7 @@ public class GroovyTemplateBenchmark extends BaseBenchmark {
 		final GStringTemplateEngine engine = new GStringTemplateEngine();
 		template = engine.createTemplate(
 				ClasspathResourceUtils.getReader(
-						getTemplatePath(".groovy.jsp")));
+						getTemplatePath(".html.groovy")));
 	}
 
 	@Override

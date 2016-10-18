@@ -3,18 +3,20 @@
 This is a benchmark program for a collection of Java template engines:
 
 * Java Native - the baseline. manually created page using StringBuilder
-* Freemarker
-* Velocity
-* Rythm
-* Httl
-* Beetl
-* Jamon
-* Thymeleaf
-* Mustache.java
-* JMustache 
-* Handlebars
-* Xslt (Saxon)
-* Groovy Template
+* [Freemarker](http://freemarker.org/)
+* [Apache Velocity](https://velocity.apache.org/)
+* [Rythm](http://rythmengine.org/)
+* [HTTL](http://httl.github.io/en/) (Hyper-Text Template Language) 
+* [Beetl](http://ibeetl.com/guide/beetl.html)
+* [Jamon](http://www.jamon.org)
+* [Apache Tomcat Jasper](https://tomcat.apache.org/tomcat-8.5-doc/jasper-howto.html) - JSP templating
+* [Thymeleaf](http://www.thymeleaf.org/)
+* [Mustache.java](https://github.com/spullara/mustache.java)
+* [JMustache ](https://github.com/samskivert/jmustache)
+* [Handlebars](https://github.com/jknack/handlebars.java)
+* [Saxon](http://saxon.sourceforge.net/) - XSL-T templating
+* [Groovy Template](http://docs.groovy-lang.org/latest/html/documentation/template-engines.html)
+* [Trimou](http://trimou.org/)
   
 The versions of template engines can be deduced by looking in the pom.xml file.
 Each template engine should have its version suffixed in the template dir inside final JAR.

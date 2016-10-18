@@ -30,11 +30,9 @@ public class DummyInstanceManager implements InstanceManager {
 
 	@Override
 	public void newInstance(final Object o) throws IllegalAccessException, InvocationTargetException, NamingException {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void destroyInstance(final Object o) throws IllegalAccessException, InvocationTargetException {
-		throw new UnsupportedOperationException();
 	}
 }

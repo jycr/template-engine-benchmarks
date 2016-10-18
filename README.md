@@ -1,6 +1,9 @@
 # Java Template angine Benchmark
 
-This is a benchmark program for a collection of Java template engines:
+[![GitHub issues](https://img.shields.io/github/issues/httl/httl.svg)](https://github.com/httl/httl/issues)
+[![Build Status](https://travis-ci.org/jycr/template-engine-benchmarks.svg?branch=master)](https://travis-ci.org/jycr/template-engine-benchmarks)
+
+This is a benchmark (OpenJDK: jmh) for a collection of Java template engines:
 
 * Java Native - the baseline. manually created page using StringBuilder
 * [Freemarker](http://freemarker.org/)
@@ -9,7 +12,7 @@ This is a benchmark program for a collection of Java template engines:
 * [HTTL](http://httl.github.io/en/) (Hyper-Text Template Language) 
 * [Beetl](http://ibeetl.com/guide/beetl.html)
 * [Jamon](http://www.jamon.org)
-* [Apache Tomcat Jasper](https://tomcat.apache.org/tomcat-8.5-doc/jasper-howto.html) - JSP templating
+* [Apache Tomcat Jasper](https://tomcat.apache.org/tomcat-8.5-doc/jasper-howto.html) - JSP and JSPX templating
 * [Thymeleaf](http://www.thymeleaf.org/)
 * [Mustache.java](https://github.com/spullara/mustache.java)
 * [JMustache ](https://github.com/samskivert/jmustache)

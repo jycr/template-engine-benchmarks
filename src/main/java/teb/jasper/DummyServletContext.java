@@ -3,8 +3,10 @@ package teb.jasper;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.EventListener;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,6 +27,13 @@ import org.apache.tomcat.InstanceManager;
 
 public class DummyServletContext implements ServletContext {
 	public static final DummyServletContext INSTANCE = new DummyServletContext();
+	private static final Map<String, Object> ATTRIBUTES;
+	static {
+		final Map<String, Object> attributes = new HashMap<>();
+		attributes.put(JspApplicationContextImpl.class.getName(), new JspApplicationContextImpl());
+		attributes.put(InstanceManager.class.getName(), DummyInstanceManager.INSTANCE);
+		ATTRIBUTES = Collections.unmodifiableMap(attributes);
+	}
 
 	private DummyServletContext() {
 	}
@@ -131,12 +140,12 @@ public class DummyServletContext implements ServletContext {
 
 	@Override
 	public String getInitParameter(final String name) {
-		throw new UnsupportedOperationException();
+		return null;
 	}
 
 	@Override
 	public Enumeration<String> getInitParameterNames() {
-		throw new UnsupportedOperationException();
+		return Collections.emptyEnumeration();
 	}
 
 	@Override
@@ -144,27 +153,18 @@ public class DummyServletContext implements ServletContext {
 		throw new UnsupportedOperationException();
 	}
 
-	private static final JspApplicationContextImpl JSP_APPLICATION_CONTEXT = new JspApplicationContextImpl();
-
 	@Override
 	public Object getAttribute(final String name) {
-		if (JspApplicationContextImpl.class.getName().equals(name)) {
-			return JSP_APPLICATION_CONTEXT;
-		}
-		if (InstanceManager.class.getName().equals(name)) {
-			return DummyInstanceManager.INSTANCE;
-		}
-		throw new UnsupportedOperationException();
+		return ATTRIBUTES.get(name);
 	}
 
 	@Override
 	public Enumeration<String> getAttributeNames() {
-		throw new UnsupportedOperationException();
+		return Collections.enumeration(ATTRIBUTES.keySet());
 	}
 
 	@Override
 	public void setAttribute(final String name, final Object object) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override

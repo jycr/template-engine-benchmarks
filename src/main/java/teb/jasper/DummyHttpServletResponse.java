@@ -80,7 +80,7 @@ public class DummyHttpServletResponse implements HttpServletResponse {
 
 	@Override
 	public boolean isCommitted() {
-		throw new UnsupportedOperationException();
+		return false;
 	}
 
 	@Override

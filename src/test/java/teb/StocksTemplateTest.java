@@ -34,6 +34,11 @@ public class StocksTemplateTest {
 	}
 
 	@Test
+	public void testJasperXBenchmark() throws Exception {
+		test(new JasperXBenchmark());
+	}
+
+	@Test
 	public void testTrimouBenchmark() throws Exception {
 		test(new TrimouBenchmark());
 	}

@@ -1,5 +1,6 @@
 package teb.jasper;
 
+import java.util.Collections;
 import java.util.Enumeration;
 
 import javax.servlet.ServletContext;
@@ -49,42 +50,40 @@ public class DummyHttpSession implements HttpSession {
 
 	@Override
 	public Object getAttribute(final String name) {
-		throw new UnsupportedOperationException();
+		return null;
 	}
 
 	@Override
 	public Object getValue(final String name) {
-		throw new UnsupportedOperationException();
+		return null;
 	}
 
 	@Override
 	public Enumeration<String> getAttributeNames() {
-		throw new UnsupportedOperationException();
+		return Collections.emptyEnumeration();
 	}
+
+	private static final String[] EMPTY = new String[0];
 
 	@Override
 	public String[] getValueNames() {
-		throw new UnsupportedOperationException();
+		return EMPTY;
 	}
 
 	@Override
 	public void setAttribute(final String name, final Object value) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void putValue(final String name, final Object value) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void removeAttribute(final String name) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void removeValue(final String name) {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override

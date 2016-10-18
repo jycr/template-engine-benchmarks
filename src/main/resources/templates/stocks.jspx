@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.1">
+	<jsp:directive.page contentType="text/html" />
+	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Stock Prices</title>
+</head>
+<body>
+	<h1>Stock Prices</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>symbol</th>
+				<th>name</th>
+				<th>price</th>
+				<th>change</th>
+				<th>ratio</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="item" items="${requestScope.items}">
+				<tr>
+					<td><a href="/stocks/${item.symbol}">${item.symbol}</a></td>
+					<td><a href="${item.url}">${item.name}</a></td>
+					<td>${item.price}</td>
+					<td>${item.change}</td>
+					<td>${item.ratio}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+</body>
+	</html>
+</jsp:root>

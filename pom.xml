@@ -135,12 +135,22 @@
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>8.0.38</version>
+			<version>${jasper.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-logging-juli</artifactId>
+			<version>${jasper.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-el</artifactId>
-			<version>8.0.38</version>
+			<version>${jasper.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>javax.servlet.jsp.jstl</artifactId>
+			<version>1.2.4</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -161,7 +171,7 @@
 								<mkdir dir="${generated-sources}/jasper-jsp" />
 								<jasper uriroot="${template-dir}" outputDir="${generated-sources}/jasper-jsp"
 									package="teb.jasper" trimSpaces="true" validateTld="false"
-									validateXml="false" compile="false" genStringAsCharArray="true" />
+									validateXml="true" compile="false" genStringAsCharArray="true" />
 							</target>
 						</configuration>
 						<goals>
@@ -179,6 +189,26 @@
 						<groupId>org.apache.tomcat.embed</groupId>
 						<artifactId>tomcat-embed-logging-juli</artifactId>
 						<version>${jasper.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>javax.servlet</groupId>
+						<artifactId>javax.servlet-api</artifactId>
+						<version>3.1.0</version>
+					</dependency>
+					<dependency>
+						<groupId>javax.servlet.jsp</groupId>
+						<artifactId>javax.servlet.jsp-api</artifactId>
+						<version>2.3.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.tomcat.embed</groupId>
+						<artifactId>tomcat-embed-el</artifactId>
+						<version>${jasper.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.glassfish.web</groupId>
+						<artifactId>javax.servlet.jsp.jstl</artifactId>
+						<version>1.2.4</version>
 					</dependency>
 				</dependencies>
 			</plugin>

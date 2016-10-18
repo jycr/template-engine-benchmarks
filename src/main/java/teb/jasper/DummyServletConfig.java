@@ -1,5 +1,6 @@
 package teb.jasper;
 
+import java.util.Collections;
 import java.util.Enumeration;
 
 import javax.servlet.ServletConfig;
@@ -23,11 +24,11 @@ public class DummyServletConfig implements ServletConfig {
 
 	@Override
 	public String getInitParameter(final String name) {
-		throw new UnsupportedOperationException();
+		return null;
 	}
 
 	@Override
 	public Enumeration<String> getInitParameterNames() {
-		throw new UnsupportedOperationException();
+		return Collections.emptyEnumeration();
 	}
 }

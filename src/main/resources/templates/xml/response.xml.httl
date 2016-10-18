@@ -1,0 +1,14 @@
+<!--#var(teb.model.XmlResponse xmlResponse)-->
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<header>
+		<uuid>${xmlResponse.uuid}</uuid>
+		<lastModified>${xmlResponse.lastModified}</lastModified>
+	</header>
+	<org-info>
+		<org-uuid>${xmlResponse.orgUuid}</org-uuid>
+	</org-info>
+	<info-status>
+		<status-code>${xmlResponse.status}</status-code>
+	</info-status>
+</doc>

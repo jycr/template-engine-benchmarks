@@ -21,7 +21,7 @@ public class HandlebarsBenchmark extends BaseBenchmark {
 		templateLoader.setSuffix("");
 		handlebars = new Handlebars(templateLoader).with(new ConcurrentMapTemplateCache());
 		// Handlebars is largely compatible with Mustache templates
-		template = handlebars.compile(getTemplateName(".mustache.html"));
+		template = handlebars.compile(getTemplateName(".mustache"));
 	}
 
 	@Override

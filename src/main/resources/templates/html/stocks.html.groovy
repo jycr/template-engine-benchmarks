@@ -12,7 +12,6 @@
     <tr><th>symbol</th><th>name</th><th>price</th><th>change</th><th>ratio</th></tr>
    </thead>
    <tbody>
-<%int i=0; %>
 <%for(teb.model.Stock item: items){%>
     <tr>
      <td><a href="/stocks/<%= item.getSymbol() %>"><%= item.getSymbol() %></a></td>

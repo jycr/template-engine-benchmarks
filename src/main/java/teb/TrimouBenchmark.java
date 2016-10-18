@@ -18,7 +18,7 @@ public class TrimouBenchmark extends BaseBenchmark {
 	public void setup() {
 		final MustacheEngine engine = MustacheEngineBuilder
 				.newBuilder()
-				.addTemplateLocator(new ClassPathTemplateLocator(1, TEMPLATE_DIR, "mustache.html", this.getClass().getClassLoader(), true))
+				.addTemplateLocator(new ClassPathTemplateLocator(1, TEMPLATE_DIR, "mustache", this.getClass().getClassLoader(), true))
 				.build();
 		template = engine.getMustache(getTemplateName(""));
 	}

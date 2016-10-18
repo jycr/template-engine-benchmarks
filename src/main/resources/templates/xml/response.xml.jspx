@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.1">
+	<jsp:directive.page contentType="application/xml" />
+<c:set var="xmlResponse" value="${requestScope.xmlResponse}" />
+<doc>
+	<header>
+		<uuid>${xmlResponse.uuid}</uuid>
+		<lastModified>${xmlResponse.lastModified}</lastModified>
+	</header>
+	<org-info>
+		<org-uuid>${xmlResponse.orgUuid}</org-uuid>
+	</org-info>
+	<info-status>
+		<status-code>${xmlResponse.status}</status-code>
+	</info-status>
+</doc>
+</jsp:root>

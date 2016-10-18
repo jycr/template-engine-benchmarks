@@ -21,7 +21,7 @@ public class JmteBenchmark extends BaseBenchmark {
 	@Override
 	public void setup() throws Exception {
 		engine = new Engine();
-		tmpl = ClasspathResourceUtils.getAsString(getTemplatePath(".jmte.html"));
+		tmpl = ClasspathResourceUtils.getAsString(getTemplatePath(".jmte"));
 	}
 
 	@Override

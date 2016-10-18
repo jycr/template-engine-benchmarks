@@ -129,7 +129,7 @@ public class DummyHttpServletRequest implements HttpServletRequest {
 
 	@Override
 	public void setAttribute(final String name, final Object o) {
-		throw new UnsupportedOperationException();
+		attributes.put(name, o);
 	}
 
 	@Override

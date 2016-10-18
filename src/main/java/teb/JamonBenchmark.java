@@ -10,6 +10,9 @@ import java.util.List;
 import org.openjdk.jmh.annotations.Benchmark;
 
 import teb.model.Stock;
+import teb.model.XmlResponse;
+import templates.html.stocks_html;
+import templates.xml.response_xml;
 
 /**
  * @see "http://www.jamon.org"
@@ -19,13 +22,19 @@ public class JamonBenchmark extends BaseBenchmark {
 	public void setup() throws Exception {
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@Benchmark
 	public void run() {
-		@SuppressWarnings("unchecked")
-		final List<Stock> items = (List<Stock>) getParams().get("items");
 		try {
-			new templates.stocks().render(getOutput(), items);
+			final String templateName = getTemplateName("");
+			if (TEMPLATE_XML_RESPONSE.equals(templateName)) {
+				new response_xml().render(getOutput(), (XmlResponse) getParams().get("xmlResponse"));
+			} else if (TEMPLATE_HTML_STOCKS.equals(templateName)) {
+				new stocks_html().render(getOutput(), (List<Stock>) getParams().get("items"));
+			} else {
+				throw new IllegalArgumentException("Template Name not known: " + templateName);
+			}
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}

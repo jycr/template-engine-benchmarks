@@ -4,11 +4,16 @@ import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.Collection;
 
 import javax.xml.transform.Source;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xmlunit.builder.Input;
@@ -16,16 +21,26 @@ import org.xmlunit.matchers.CompareMatcher;
 
 import teb.util.ClasspathResourceUtils;
 
-public class StocksTemplateTest {
-	private static final Logger LOG = LoggerFactory.getLogger(StocksTemplateTest.class);
+@RunWith(Parameterized.class)
+public class AllTemplateTest {
+	private static final Logger LOG = LoggerFactory.getLogger(AllTemplateTest.class);
 
-	private final String templateName = "stocks";
+	private final String templateName;
 
 	private Source expected;
 
+	@Parameters
+	public static Collection<String> templateNames() {
+		return Arrays.asList("html/stocks.html", "xml/response.xml");
+	}
+
+	public AllTemplateTest(final String templateName) {
+		this.templateName = templateName;
+	}
+
 	@Before
 	public void init() throws IOException {
-		expected = Input.from(ClasspathResourceUtils.getAsString(BaseBenchmark.TEMPLATE_DIR + "/" + templateName + ".html")).build();
+		expected = Input.from(ClasspathResourceUtils.getAsString(BaseBenchmark.TEMPLATE_DIR + "/" + templateName)).build();
 	}
 
 	@Test
@@ -146,5 +161,4 @@ public class StocksTemplateTest {
 		b.run();
 		b.run();
 	}
-
 }

@@ -1,8 +1,7 @@
 package teb;
 
+import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +21,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.openjdk.jmh.annotations.Benchmark;
 
 import teb.model.Stock;
+import teb.model.XmlResponse;
 
 public class XsltBenchmark extends BaseBenchmark {
 	private Templates template;
@@ -33,18 +33,19 @@ public class XsltBenchmark extends BaseBenchmark {
 		final TransformerFactory transFact = TransformerFactory.newInstance();
 		template = transFact.newTemplates(xsltSource);
 		context = JAXBContext.newInstance(Model.class);
+		// debugPrintXmlDataSource();
+	}
 
+	public void debugPrintXmlDataSource() throws IOException, JAXBException {
 		try (final StringWriter output = new StringWriter()) {
 			final Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.marshal(Model.create(getParams()), output);
-
 			output.flush();
 			System.out.println("================================================================================");
 			System.out.println(output);
 			System.out.println("================================================================================");
 		}
-
 	}
 
 	@Override
@@ -69,12 +70,17 @@ public class XsltBenchmark extends BaseBenchmark {
 
 	@XmlRootElement
 	public static class Model {
-		public final List<Stock> item = new ArrayList<>();
+		public List<Stock> item;
+		public XmlResponse xmlResponse;
 
 		@SuppressWarnings("unchecked")
 		public static final Model create(final Map<String, Object> map) {
 			final Model result = new Model();
-			result.item.addAll((Collection<? extends Stock>) map.get("items"));
+			if (map.get("items") != null) {
+				result.item = (List<Stock>) map.get("items");
+			} else if (map.get("xmlResponse") != null) {
+				result.xmlResponse = (XmlResponse) map.get("xmlResponse");
+			}
 			return result;
 		}
 	}

@@ -31,7 +31,7 @@ public class VelocityBenchmark extends BaseBenchmark {
 		} catch (final Exception ex) {
 			throw new RuntimeException(ex);
 		}
-		template = _engine.getTemplate(getTemplatePath(".vm.html"));
+		template = _engine.getTemplate(getTemplatePath(".vm"));
 	}
 
 	@Override

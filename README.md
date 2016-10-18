@@ -5,7 +5,7 @@
 
 This is a benchmark (OpenJDK: jmh) for a collection of Java template engines:
 
-* Java Native - the baseline. manually created page using StringBuilder
+* Java Native - the baseline. manually created page using char[] and Writer
 * [Freemarker](http://freemarker.org/)
 * [Apache Velocity](https://velocity.apache.org/)
 * [Rythm](http://rythmengine.org/)

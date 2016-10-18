@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<header>
+		<uuid th:text="${xmlResponse.uuid}"></uuid>
+		<lastModified th:text="${xmlResponse.lastModified}"></lastModified>
+	</header>
+	<org-info>
+		<org-uuid th:text="${xmlResponse.orgUuid}"></org-uuid>
+	</org-info>
+	<info-status>
+		<status-code th:text="${xmlResponse.status}"></status-code>
+	</info-status>
+</doc>

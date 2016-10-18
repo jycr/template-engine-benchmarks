@@ -5,8 +5,12 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -20,7 +24,9 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
+import teb.model.Status;
 import teb.model.Stock;
+import teb.model.XmlResponse;
 import teb.util.ClasspathResourceUtils;
 import teb.util.DoNothingWriter;
 
@@ -31,18 +37,30 @@ import teb.util.DoNothingWriter;
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Benchmark)
 public abstract class BaseBenchmark implements Runnable {
+	public static final String TEMPLATE_HTML_STOCKS = "html/stocks.html";
+	public static final String TEMPLATE_XML_RESPONSE = "xml/response.xml";
 
 	public static final String TEMPLATE_DIR = "templates";
 
 	private Writer output;
 	private final Map<String, Object> params = new HashMap<>();
 
-	@Param("stocks")
+	@Param({ TEMPLATE_HTML_STOCKS, TEMPLATE_XML_RESPONSE })
 	private String templateName;
 
 	@Setup
 	public void init() {
-		params.put("items", Stock.dummyItems());
+		if (TEMPLATE_HTML_STOCKS.equals(templateName)) {
+			params.put("items", Stock.dummyItems());
+		}
+		if (TEMPLATE_XML_RESPONSE.equals(templateName)) {
+			final XmlResponse xmlResponse = new XmlResponse();
+			xmlResponse.setUuid(UUID.fromString("8bb080f3-d384-49a8-b372-7ddffb8c5b33"));
+			xmlResponse.setOrgUuid(UUID.fromString("89697e5a-15b4-4d32-b37f-ad17f6ae0fdf"));
+			xmlResponse.setLastModified(ZonedDateTime.of(2016, 10, 18, 22, 28, 33, 826000000, ZoneId.from(ZoneOffset.ofHoursMinutes(1, 0))));
+			xmlResponse.setStatus(Status.OK);
+			params.put("xmlResponse", xmlResponse);
+		}
 
 		output = new DoNothingWriter();
 
@@ -93,7 +111,8 @@ public abstract class BaseBenchmark implements Runnable {
 
 	public void test() {
 		try {
-			test("stocks", new OutputStreamWriter(System.out));
+			test(TEMPLATE_HTML_STOCKS, new OutputStreamWriter(System.out));
+			test(TEMPLATE_XML_RESPONSE, new OutputStreamWriter(System.out));
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}

@@ -1,0 +1,19 @@
+<%import>
+  teb.model.*;
+</%import>
+<%args>
+  XmlResponse response;
+</%args>
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	<header>
+		<uuid><% response.getUuid()%></uuid>
+		<lastModified><% response.getLastModified()%></lastModified>
+	</header>
+	<org-info>
+		<org-uuid><% response.getOrgUuid()%></org-uuid>
+	</org-info>
+	<info-status>
+		<status-code><% response.getStatus() %></status-code>
+	</info-status>
+</doc>

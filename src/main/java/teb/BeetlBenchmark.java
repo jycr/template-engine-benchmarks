@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.beetl.core.Configuration;
+import org.beetl.core.ErrorHandler;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
+import org.beetl.core.exception.BeetlException;
 import org.beetl.core.resource.ClasspathResourceLoader;
 import org.openjdk.jmh.annotations.Benchmark;
 
@@ -29,8 +31,11 @@ public class BeetlBenchmark extends BaseBenchmark {
 		cfg.setStatementEnd("-->");
 		cfg.setPlaceholderStart("${");
 		cfg.setPlaceholderEnd("}");
+		cfg.setStrict(true);
+		cfg.setNativeCall(true);
+		cfg.setErrorHandlerClass(BeetlBenchmarkErrorHandler.class.getName());
 		final GroupTemplate group = new GroupTemplate(new ClasspathResourceLoader(this.getClass().getClassLoader(), "", "UTF-8"), cfg);
-		template = group.getTemplate(getTemplatePath(".beetl.html"));
+		template = group.getTemplate(getTemplatePath(".beetl"));
 	}
 
 	@Override
@@ -46,5 +51,12 @@ public class BeetlBenchmark extends BaseBenchmark {
 
 	public static void main(final String[] args) {
 		new BeetlBenchmark().test();
+	}
+
+	public static final class BeetlBenchmarkErrorHandler implements ErrorHandler {
+		@Override
+		public void processExcption(final BeetlException e, final Writer writer) {
+			throw new RuntimeException(e.getMessage(), e);
+		}
 	}
 }

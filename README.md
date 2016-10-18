@@ -1,6 +1,6 @@
 # Java Template angine Benchmark
 
-[![GitHub issues](https://img.shields.io/github/issues/httl/httl.svg)](https://github.com/httl/httl/issues)
+[![GitHub issues](https://img.shields.io/github/issues/jycr/template-engine-benchmarks.svg)](https://github.com/jycr/template-engine-benchmarks/issues)
 [![Build Status](https://travis-ci.org/jycr/template-engine-benchmarks.svg?branch=master)](https://travis-ci.org/jycr/template-engine-benchmarks)
 
 This is a benchmark (OpenJDK: jmh) for a collection of Java template engines:

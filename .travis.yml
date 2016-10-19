@@ -12,7 +12,11 @@ script:
     - echo ================================================================================
     - cat target/jmh-result.csv
     - echo ================================================================================
-    - gnuplot benchmark.plot
+    - grep "html/stocks.html" target/jmh-result.csv | sed -r 's,^".+?\.([^."]+?)Benchmark[^"]*","\1",' > target/jmh-result-benchmark-html-stocks.csv
+    - grep "xml/response.xml" target/jmh-result.csv | sed -r 's,^".+?\.([^."]+?)Benchmark[^"]*","\1",' > target/jmh-result-benchmark-xml-response.csv
+    - gnuplot benchmark-html-stocks.plot
+    - gnuplot benchmark-xml-response.plot
     - echo ================================================================================
-    - cat target/jmh-result.svg
+    - cat target/jmh-result-benchmark-html-stocks.svg
+    - cat target/jmh-result-benchmark-xml-response.svg
     - echo ================================================================================

@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -34,7 +35,7 @@ import com.mitchellbosecke.benchmark.util.DoNothingWriter;
 @Warmup(iterations = 10)
 @Measurement(iterations = 10)
 @BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
+@OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Benchmark)
 public abstract class BaseBenchmark implements Runnable {
 	public static final String TEMPLATE_HTML_STOCKS = "html/stocks.html";
@@ -52,6 +53,7 @@ public abstract class BaseBenchmark implements Runnable {
 
 	@Setup
 	public void init() {
+		Locale.setDefault(Locale.ENGLISH);
 		if (TEMPLATE_HTML_STOCKS.equals(templateName)) {
 			context.put("items", Stock.dummyItems());
 		}

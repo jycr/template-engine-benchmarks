@@ -45,3 +45,5 @@ Example Results
 ===============
 
 Benchmark result can also be available at https://travis-ci.org/jycr/template-engine-benchmarks
+
+[![JMH Results](https://img.shields.io/github/issues/jycr/template-engine-benchmarks.svg)](https://github.com/jycr/template-engine-benchmarks/issues)

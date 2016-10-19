@@ -9,6 +9,7 @@ JMH benchmark for popular Java template engines:
 * Java Native - the baseline. manually created page using char[] and Writer
 * [Freemarker](http://freemarker.org/)
 * [Mustache](https://github.com/spullara/mustache.java)
+* [Rocker](https://github.com/fizzed/rocker)
 * [Thymeleaf](http://www.thymeleaf.org/)
 * [Trimou](http://trimou.org/)
 * [Apache Velocity](https://velocity.apache.org/)
@@ -45,5 +46,3 @@ Example Results
 ===============
 
 Benchmark result can also be available at https://travis-ci.org/jycr/template-engine-benchmarks
-
-[![JMH Results](https://img.shields.io/github/issues/jycr/template-engine-benchmarks.svg)](https://github.com/jycr/template-engine-benchmarks/issues)

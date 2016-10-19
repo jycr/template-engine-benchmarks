@@ -1,7 +1,3 @@
-/*
- * $Copyright: copyright(c) 2007-2011 kuwata-lab.com all rights reserved. $
- * $License: Creative Commons Attribution (CC BY) $
- */
 package com.mitchellbosecke.benchmark;
 
 import java.io.IOException;

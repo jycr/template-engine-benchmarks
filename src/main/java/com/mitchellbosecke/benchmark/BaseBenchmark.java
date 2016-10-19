@@ -118,9 +118,10 @@ public abstract class BaseBenchmark implements Runnable {
 	}
 
 	public void test() {
-		try {
-			test(TEMPLATE_HTML_STOCKS, new OutputStreamWriter(System.out));
-			test(TEMPLATE_XML_RESPONSE, new OutputStreamWriter(System.out));
+		try (OutputStreamWriter output = new OutputStreamWriter(System.out)) {
+			test(TEMPLATE_HTML_STOCKS, output);
+			test(TEMPLATE_XML_RESPONSE, output);
+			output.flush();
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}

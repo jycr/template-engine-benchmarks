@@ -51,6 +51,11 @@ public class ExpectedOutputTest {
 	}
 
 	@Test
+	public void testRockerBenchmark() throws Exception {
+		test(new RockerBenchmark());
+	}
+
+	@Test
 	public void testJasperBenchmark() throws Exception {
 		test(new JasperBenchmark());
 	}

@@ -16,6 +16,7 @@
 		<maven.compiler.source>${maven.compiler.target}</maven.compiler.source>
 		<jmh.version>1.15</jmh.version>
 		<uberjar.name>benchmarks</uberjar.name>
+		<rocker.version>0.13.1</rocker.version>
 		<jasper.version>8.0.38</jasper.version>
 		<generated-sources>${project.build.directory}/generated-sources</generated-sources>
 		<template-dir>${project.basedir}/src/main/resources</template-dir>
@@ -113,9 +114,29 @@
 						</goals>
 						<configuration>
 							<sources>
+								<source>${generated-sources}/rocker</source>
 								<source>${generated-sources}/jamon</source>
 								<source>${generated-sources}/jasper-jsp</source>
 							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.fizzed</groupId>
+				<artifactId>rocker-maven-plugin</artifactId>
+				<version>${rocker.version}</version>
+				<executions>
+					<execution>
+						<id>generate-rocker-templates</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<templateDirectory>src/main/resources</templateDirectory>
+							<optimize>true</optimize>
+							<discardLogicWhitespace>true</discardLogicWhitespace>
 						</configuration>
 					</execution>
 				</executions>
@@ -201,6 +222,11 @@
 			<groupId>com.github.jknack</groupId>
 			<artifactId>handlebars</artifactId>
 			<version>4.0.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fizzed</groupId>
+			<artifactId>rocker-runtime</artifactId>
+			<version>${rocker.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jamon</groupId>
@@ -294,6 +320,7 @@
 			<groupId>org.xmlunit</groupId>
 			<artifactId>xmlunit-matchers</artifactId>
 			<version>2.2.1</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

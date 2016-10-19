@@ -1,0 +1,37 @@
+@import com.mitchellbosecke.benchmark.model.*
+@import java.util.List
+@args (List<Stock> items)
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Stock Prices</title>
+</head>
+<body>
+	<h1>Stock Prices</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>symbol</th>
+				<th>name</th>
+				<th>price</th>
+				<th>change</th>
+				<th>ratio</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for ((ForIterator i, Stock item) : items) {
+			<tr>
+				<td><a href="/stocks/@item.getSymbol()">@item.getSymbol()</a></td>
+				<td><a href="@item.getUrl()">@item.getName()</a></td>
+				<td>@item.getPrice()</td>
+				<td>@item.getChange()</td>
+				<td>@item.getRatio()</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+
+</body>
+</html>

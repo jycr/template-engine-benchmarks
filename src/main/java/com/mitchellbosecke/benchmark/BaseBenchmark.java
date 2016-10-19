@@ -30,9 +30,9 @@ import com.mitchellbosecke.benchmark.model.XmlResponse;
 import com.mitchellbosecke.benchmark.util.ClasspathResourceUtils;
 import com.mitchellbosecke.benchmark.util.DoNothingWriter;
 
-@Fork(2)
-@Warmup(iterations = 6)
-@Measurement(iterations = 6)
+@Fork(0)
+@Warmup(iterations = 10)
+@Measurement(iterations = 10)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Benchmark)

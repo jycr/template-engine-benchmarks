@@ -84,4 +84,16 @@ public class XsltBenchmark extends BaseBenchmark {
 			return result;
 		}
 	}
+
+	@XmlRootElement
+	public static class ItemsModel {
+		public List<Stock> item;
+
+		@SuppressWarnings("unchecked")
+		public static final ItemsModel create(final List<Stock> items) {
+			final ItemsModel result = new ItemsModel();
+			result.item = items;
+			return result;
+		}
+	}
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doc>
 <jsp:useBean id="xmlResponse" class="java.lang.Object" scope="request" />
-<% teb.model.XmlResponse resp = (teb.model.XmlResponse)xmlResponse; %>
+<% com.mitchellbosecke.benchmark.model.XmlResponse resp = (com.mitchellbosecke.benchmark.model.XmlResponse)xmlResponse; %>
 	<header>
 		<uuid><%=resp.getUuid()%></uuid>
 		<lastModified><%=resp.getLastModified()%></lastModified>

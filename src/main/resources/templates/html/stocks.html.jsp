@@ -13,7 +13,7 @@
    </thead>
    <tbody>
 	<jsp:useBean id="items" class="java.util.ArrayList" scope="request" />
-<%for(teb.model.Stock item: (java.util.ArrayList<teb.model.Stock>)items){%>
+<%for(com.mitchellbosecke.benchmark.model.Stock item: (java.util.ArrayList<com.mitchellbosecke.benchmark.model.Stock>)items){%>
     <tr>
      <td><a href="/stocks/<%= item.getSymbol() %>"><%= item.getSymbol() %></a></td>
      <td><a href="<%= item.getUrl() %>"><%= item.getName() %></a></td>

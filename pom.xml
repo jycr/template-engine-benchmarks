@@ -38,7 +38,7 @@
 									classpathref="maven.plugin.classpath" />
 								<mkdir dir="${generated-sources}/jasper-jsp" />
 								<jasper uriroot="${template-dir}" outputDir="${generated-sources}/jasper-jsp"
-									package="teb.jasper" trimSpaces="true" validateTld="false"
+									package="com.mitchellbosecke.benchmark.jasper" trimSpaces="true" validateTld="false"
 									validateXml="true" compile="false" genStringAsCharArray="true" />
 							</target>
 						</configuration>

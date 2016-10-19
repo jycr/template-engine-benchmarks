@@ -10,8 +10,6 @@ import java.util.Properties;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.rythmengine.RythmEngine;
 
-import com.mitchellbosecke.benchmark.util.ClasspathResourceUtils;
-
 public class RythmBenchmark extends BaseBenchmark {
 
 	private RythmEngine engine;
@@ -24,7 +22,7 @@ public class RythmBenchmark extends BaseBenchmark {
 		p.put("feature.smart_escape.enabled", false);
 		p.put("feature.transform.enabled", false);
 		engine = new RythmEngine(p);
-		template = ClasspathResourceUtils.getAsString(getTemplatePath(".rythm"));
+		template = getTemplateAsString(".rythm");
 	}
 
 	protected void shutdown() {

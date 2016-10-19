@@ -17,7 +17,7 @@
  * declare variables and you can import any 
  * packages and classes used in the template
  *@
-@import teb.model.Stock
+@import com.mitchellbosecke.benchmark.model.Stock
 @args java.util.List<Stock> items
 @**
  * by default rythm escape all expression output

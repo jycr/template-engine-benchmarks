@@ -12,7 +12,7 @@
     <tr><th>symbol</th><th>name</th><th>price</th><th>change</th><th>ratio</th></tr>
    </thead>
    <tbody>
-<%for(teb.model.Stock item: items){%>
+<%for(com.mitchellbosecke.benchmark.model.Stock item: items){%>
     <tr>
      <td><a href="/stocks/<%= item.getSymbol() %>"><%= item.getSymbol() %></a></td>
      <td><a href="<%= item.getUrl() %>"><%= item.getName() %></a></td>

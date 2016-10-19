@@ -10,6 +10,8 @@ import java.util.Properties;
 
 import org.openjdk.jmh.annotations.Benchmark;
 
+import com.mitchellbosecke.benchmark.model.Stock;
+
 import httl.Engine;
 import httl.Template;
 
@@ -20,7 +22,7 @@ public class HttlBenchmark extends BaseBenchmark {
 	@Override
 	public void setup() throws Exception {
 		final Properties prop = new Properties();
-		prop.setProperty("import.packages", "teb.model,java.util");
+		prop.setProperty("import.packages", Stock.class.getPackage().getName() + ",java.util");
 		prop.setProperty("compiler", "httl.spi.compilers.JavassistCompiler");
 		prop.setProperty("filter", "null");
 		prop.setProperty("logger", "null");

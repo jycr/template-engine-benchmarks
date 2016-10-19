@@ -21,24 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.xmlunit.builder.Input;
 import org.xmlunit.matchers.CompareMatcher;
 
-import com.mitchellbosecke.benchmark.BaseBenchmark;
-import com.mitchellbosecke.benchmark.BeetlBenchmark;
-import com.mitchellbosecke.benchmark.FreemarkerBenchmark;
-import com.mitchellbosecke.benchmark.GroovyTemplateBenchmark;
-import com.mitchellbosecke.benchmark.HandlebarsBenchmark;
-import com.mitchellbosecke.benchmark.HttlBenchmark;
-import com.mitchellbosecke.benchmark.JMustacheBenchmark;
-import com.mitchellbosecke.benchmark.JamonBenchmark;
-import com.mitchellbosecke.benchmark.JasperBenchmark;
-import com.mitchellbosecke.benchmark.JasperXBenchmark;
-import com.mitchellbosecke.benchmark.JavaNativeBenchmark;
-import com.mitchellbosecke.benchmark.JmteBenchmark;
-import com.mitchellbosecke.benchmark.MustacheBenchmark;
-import com.mitchellbosecke.benchmark.RythmBenchmark;
-import com.mitchellbosecke.benchmark.ThymeleafBenchmark;
-import com.mitchellbosecke.benchmark.TrimouBenchmark;
-import com.mitchellbosecke.benchmark.VelocityBenchmark;
-import com.mitchellbosecke.benchmark.XsltBenchmark;
 import com.mitchellbosecke.benchmark.util.ClasspathResourceUtils;
 
 @RunWith(Parameterized.class)
@@ -65,7 +47,7 @@ public class ExpectedOutputTest {
 
 	@Before
 	public void init() throws IOException {
-		expected = Input.from(ClasspathResourceUtils.getAsString(BaseBenchmark.TEMPLATE_DIR + "/" + templateName)).build();
+		expected = Input.from(new ClasspathResourceUtils(getClass().getClassLoader()).getAsString(BaseBenchmark.TEMPLATE_DIR + "/" + templateName)).build();
 	}
 
 	@Test
@@ -161,6 +143,7 @@ public class ExpectedOutputTest {
 	public void testSingle(final BaseBenchmark b) throws Exception {
 		final StringWriter output = new StringWriter();
 		b.test(templateName, output);
+
 		final String reason = templateName + " with " + b.getClass().getSimpleName();
 		final String result = output.toString();
 		LOG.info("{}. Output:\n{}", reason, result);

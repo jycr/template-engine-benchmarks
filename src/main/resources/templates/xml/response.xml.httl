@@ -1,4 +1,4 @@
-<!--#var(teb.model.XmlResponse xmlResponse)-->
+<!--#var(com.mitchellbosecke.benchmark.model.XmlResponse xmlResponse)-->
 <?xml version="1.0" encoding="UTF-8"?>
 <doc>
 	<header>

@@ -4,8 +4,8 @@
  * declare variables and you can import any 
  * packages and classes used in the template
  *@
-@import teb.model.XmlResponse
-@args teb.model.XmlResponse xmlResponse
+@import com.mitchellbosecke.benchmark.model.XmlResponse
+@args com.mitchellbosecke.benchmark.model.XmlResponse xmlResponse
 @**
  * by default rythm escape all expression output
  * here we use @raw() to prevent escaping as 

@@ -10,7 +10,6 @@ import org.apache.commons.io.IOUtils;
 import org.openjdk.jmh.annotations.Benchmark;
 
 import com.floreysoft.jmte.Engine;
-import com.mitchellbosecke.benchmark.util.ClasspathResourceUtils;
 
 public class JmteBenchmark extends BaseBenchmark {
 
@@ -20,7 +19,7 @@ public class JmteBenchmark extends BaseBenchmark {
 	@Override
 	public void setup() throws Exception {
 		engine = new Engine();
-		tmpl = ClasspathResourceUtils.getAsString(getTemplatePath(".jmte"));
+		tmpl = getTemplateAsString(".jmte");
 	}
 
 	@Override

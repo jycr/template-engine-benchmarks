@@ -5,19 +5,19 @@ import java.util.List;
 
 public class Stock {
 
-    private String name;
+    public String name;
 
-    private String name2;
+    public String name2;
 
-    private String url;
+    public String url;
 
-    private String symbol;
+    public String symbol;
 
-    private double price;
+    public double price;
 
-    private double change;
+    public double change;
 
-    private double ratio;
+    public double ratio;
 
     public Stock(String name, String name2, String url, String symbol, double price, double change, double ratio) {
         this.name = name;
@@ -77,7 +77,7 @@ public class Stock {
         items.add(new Stock("Juniper Networks", "Juniper Networks, Inc", "http://www.juniper.net/", "JNPR", 18.96, 0.5,
                 2.71));
         items.add(new Stock("Microsoft", "Microsoft Corp", "http://www.microsoft.com", "MSFT", 30.6, 0.15, 0.49));
-        items.add(new Stock("Oracle", "Oracle Corp.", "http://www.oracle.com", "ORCL", 17.15, 0.17, 1.1));
+        items.add(new Stock("Oracle", "Oracle Corp.", "http://www.oracle.com", "ORCL", 17.15, 0.17, 1.0));
         items.add(new Stock("SAP", "SAP AG", "http://www.sap.com", "SAP", 46.2, -0.16, -0.35));
         items.add(new Stock("Seagate Technology", "Seagate Technology", "http://www.seagate.com/", "STX", 27.35, -0.36,
                 -1.3));

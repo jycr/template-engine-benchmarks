@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import org.openjdk.jmh.annotations.Benchmark;
 
-import com.mitchellbosecke.benchmark.util.ClasspathResourceUtils;
-
 import groovy.text.GStringTemplateEngine;
 import groovy.text.Template;
 
@@ -19,9 +17,7 @@ public class GroovyTemplateBenchmark extends BaseBenchmark {
 	@Override
 	public void setup() throws Exception {
 		final GStringTemplateEngine engine = new GStringTemplateEngine();
-		template = engine.createTemplate(
-				ClasspathResourceUtils.getReader(
-						getTemplatePath(".groovy")));
+		template = engine.createTemplate(getTemplateReader(".groovy"));
 	}
 
 	@Override

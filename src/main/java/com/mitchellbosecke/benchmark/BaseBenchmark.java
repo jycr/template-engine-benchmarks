@@ -42,6 +42,8 @@ public abstract class BaseBenchmark implements Runnable {
 
 	public static final String TEMPLATE_DIR = "templates";
 
+	private final ClasspathResourceUtils classpathResourceUtils = new ClasspathResourceUtils(this.getClass().getClassLoader());
+
 	private Writer output;
 	private final Map<String, Object> context = new HashMap<>();
 
@@ -90,7 +92,11 @@ public abstract class BaseBenchmark implements Runnable {
 	}
 
 	public Reader getTemplateReader(final String templateSuffix) throws FileNotFoundException {
-		return ClasspathResourceUtils.getReader(getTemplatePath(templateSuffix));
+		return classpathResourceUtils.getReader(getTemplatePath(templateSuffix));
+	}
+
+	public String getTemplateAsString(final String templateSuffix) throws IOException {
+		return classpathResourceUtils.getAsString(getTemplatePath(templateSuffix));
 	}
 
 	public void setTemplateName(final String templateName) {

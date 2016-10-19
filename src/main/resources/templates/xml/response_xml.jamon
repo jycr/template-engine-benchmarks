@@ -1,5 +1,5 @@
 <%import>
-  teb.model.*;
+  com.mitchellbosecke.benchmark.model.*;
 </%import>
 <%args>
   XmlResponse response;

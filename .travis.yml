@@ -3,6 +3,10 @@ jdk: oraclejdk8
 cache:
   directories:
     - '$HOME/.m2/repository'
-
+addons:
+  apt:
+    packages:
+    - gnuplot
 script:
     - mvn clean verify -Pperf
+    - gnuplot benchmark.plot

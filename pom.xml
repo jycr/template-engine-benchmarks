@@ -325,7 +325,6 @@
 								<argument>csv</argument>
 								<argument>-rff</argument>
 								<argument>${project.build.directory}/jmh-result.json</argument>
-								<argument>${benchmark}</argument>
 							</arguments>
 						</configuration>
 					</plugin>

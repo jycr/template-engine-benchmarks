@@ -146,7 +146,7 @@ public class ExpectedOutputTest {
 
 		final String reason = templateName + " with " + b.getClass().getSimpleName();
 		final String result = output.toString();
-		LOG.info("{}. Output:\n{}", reason, result);
+		LOG.debug("{}. Output:\n{}", reason, result);
 
 		try {
 			assertThat(

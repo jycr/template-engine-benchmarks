@@ -239,26 +239,6 @@
 			<version>1.0.11</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ibeetl</groupId>
-			<artifactId>beetl</artifactId>
-			<version>2.5.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.samskivert</groupId>
-			<artifactId>jmustache</artifactId>
-			<version>1.13</version>
-		</dependency>
-		<dependency>
-			<groupId>org.rythmengine</groupId>
-			<artifactId>rythm-engine</artifactId>
-			<version>1.1.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.floreysoft</groupId>
-			<artifactId>jmte</artifactId>
-			<version>3.2.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
 			<artifactId>groovy-templates</artifactId>
 			<version>2.4.7</version>

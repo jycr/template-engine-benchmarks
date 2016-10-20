@@ -98,16 +98,6 @@ public class ExpectedOutputTest {
 	}
 
 	@Test
-	public void testBeetlBenchmark() throws Exception {
-		test(new BeetlBenchmark());
-	}
-
-	@Test
-	public void testRythmBenchmark() throws Exception {
-		test(new RythmBenchmark());
-	}
-
-	@Test
 	public void testJamonBenchmark() throws Exception {
 		test(new JamonBenchmark());
 	}
@@ -118,18 +108,8 @@ public class ExpectedOutputTest {
 	}
 
 	@Test
-	public void testJmteBenchmark() throws Exception {
-		test(new JmteBenchmark());
-	}
-
-	@Test
 	public void testMustacheBenchmark() throws Exception {
 		test(new MustacheBenchmark());
-	}
-
-	@Test
-	public void testJMustacheBenchmark() throws Exception {
-		test(new JMustacheBenchmark());
 	}
 
 	@Test

@@ -19,3 +19,6 @@ target/
 *.ear
 .project
 /target/
+/target/
+/target/
+/target/

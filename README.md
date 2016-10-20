@@ -6,7 +6,7 @@ template-benchmark
 
 JMH benchmark for popular Java template engines:
 
-* Java Native - the baseline. manually created page using char[] and Writer
+* Java Native - the baseline. manually created page using byte[] and OutputStream (output Charset : UTF-8)
 * [Freemarker](http://freemarker.org/)
 * [Mustache](https://github.com/spullara/mustache.java)
 * [Rocker](https://github.com/fizzed/rocker)

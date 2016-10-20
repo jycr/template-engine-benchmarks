@@ -1,6 +1,8 @@
 package com.mitchellbosecke.benchmark;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 import org.openjdk.jmh.annotations.Benchmark;
 
@@ -27,8 +29,8 @@ public class HandlebarsBenchmark extends BaseBenchmark {
 	@Override
 	@Benchmark
 	public void run() {
-		try {
-			template.apply(getContext(), getOutput());
+		try (Writer writer = new OutputStreamWriter(getOutputStream(), DEFAULT_CHARSET)) {
+			template.apply(getContext(), writer);
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}

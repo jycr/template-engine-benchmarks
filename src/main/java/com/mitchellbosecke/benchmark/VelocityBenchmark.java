@@ -4,6 +4,9 @@
  */
 package com.mitchellbosecke.benchmark;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Map.Entry;
 
 import org.apache.velocity.Template;
@@ -42,7 +45,11 @@ public class VelocityBenchmark extends BaseBenchmark {
 		for (final Entry<String, Object> e : getContext().entrySet()) {
 			context.put(e.getKey(), e.getValue());
 		}
-		template.merge(context, getOutput());
+		try (Writer writer = new OutputStreamWriter(getOutputStream(), DEFAULT_CHARSET)) {
+			template.merge(context, writer);
+		} catch (final IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public static void main(final String[] args) {

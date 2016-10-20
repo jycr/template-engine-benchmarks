@@ -4,6 +4,9 @@
  */
 package com.mitchellbosecke.benchmark;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Locale;
 
 import org.openjdk.jmh.annotations.Benchmark;
@@ -29,7 +32,11 @@ public class ThymeleafBenchmark extends BaseBenchmark {
 	@Benchmark
 	public void run() {
 		final IContext ctx = new Context(Locale.getDefault(), getContext());
-		engine.process(template, ctx, getOutput());
+		try (Writer writer = new OutputStreamWriter(getOutputStream(), DEFAULT_CHARSET)) {
+			engine.process(template, ctx, writer);
+		} catch (final IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public static void main(final String[] args) {

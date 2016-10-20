@@ -1,6 +1,9 @@
 package com.mitchellbosecke.benchmark;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 import org.openjdk.jmh.annotations.Benchmark;
 
@@ -21,7 +24,11 @@ public class JMustacheBenchmark extends BaseBenchmark {
 	@Override
 	@Benchmark
 	public void run() {
-		template.execute(getContext(), getOutput());
+		try (Writer writer = new OutputStreamWriter(getOutputStream(), DEFAULT_CHARSET)) {
+			template.execute(getContext(), writer);
+		} catch (final IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public static void main(final String[] args) {

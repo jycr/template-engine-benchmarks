@@ -5,6 +5,8 @@
 package com.mitchellbosecke.benchmark;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Locale;
 
 import org.openjdk.jmh.annotations.Benchmark;
@@ -34,8 +36,8 @@ public class FreemarkerBenchmark extends BaseBenchmark {
 	@Override
 	@Benchmark
 	public void run() {
-		try {
-			template.process(getContext(), getOutput());
+		try (Writer writer = new OutputStreamWriter(getOutputStream(), DEFAULT_CHARSET)) {
+			template.process(getContext(), writer);
 		} catch (TemplateException | IOException e) {
 			throw new RuntimeException(e);
 		}

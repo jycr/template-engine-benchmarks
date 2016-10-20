@@ -5,6 +5,7 @@
 package com.mitchellbosecke.benchmark;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 
@@ -36,10 +37,10 @@ public class JasperXBenchmark extends BaseBenchmark {
 	@Override
 	@Benchmark
 	public void run() {
-		try {
+		try (PrintWriter stream = new PrintWriter(getOutputStream())) {
 			template._jspService(
 					new DummyHttpServletRequest(getContext()),
-					new DummyHttpServletResponse(getOutputStream()));
+					new DummyHttpServletResponse(stream));
 		} catch (final IOException | ServletException e) {
 			throw new RuntimeException(e);
 		}

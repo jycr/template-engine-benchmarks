@@ -1,6 +1,8 @@
 package com.mitchellbosecke.benchmark;
 
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 import org.openjdk.jmh.annotations.Benchmark;
 
@@ -23,10 +25,10 @@ public class GroovyTemplateBenchmark extends BaseBenchmark {
 	@Override
 	@Benchmark
 	public void run() {
-		try {
+		try (Writer writer = new OutputStreamWriter(getOutputStream(), DEFAULT_CHARSET)) {
 			template
 					.make(getContext())
-					.writeTo(getOutput());
+					.writeTo(writer);
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}

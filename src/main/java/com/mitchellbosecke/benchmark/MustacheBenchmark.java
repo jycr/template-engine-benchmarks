@@ -1,5 +1,9 @@
 package com.mitchellbosecke.benchmark;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+
 import org.openjdk.jmh.annotations.Benchmark;
 
 import com.github.mustachejava.DefaultMustacheFactory;
@@ -21,7 +25,11 @@ public class MustacheBenchmark extends BaseBenchmark {
 	@Override
 	@Benchmark
 	public void run() {
-		template.execute(getOutput(), getContext());
+		try (Writer writer = new OutputStreamWriter(getOutputStream(), DEFAULT_CHARSET)) {
+			template.execute(writer, getContext());
+		} catch (final IOException e) {
+			new RuntimeException(e);
+		}
 	}
 
 	public static void main(final String[] args) {

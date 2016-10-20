@@ -3,9 +3,7 @@ package com.mitchellbosecke.benchmark;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.io.Writer;
 import java.nio.charset.Charset;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -84,10 +82,6 @@ public abstract class BaseBenchmark implements Runnable {
 
 	public OutputStream getOutputStream() {
 		return output;
-	}
-
-	public Writer getOutput() {
-		return new OutputStreamWriter(output);
 	}
 
 	public abstract void setup() throws Exception;

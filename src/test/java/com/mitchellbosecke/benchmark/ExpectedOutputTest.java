@@ -153,6 +153,7 @@ public class ExpectedOutputTest {
 		try (final ByteArrayOutputStream output = new ByteArrayOutputStream()) {
 			b.test(templateName, output);
 			output.flush();
+			output.close();
 			result = output.toString(BaseBenchmark.DEFAULT_CHARSET.toString());
 		} catch (final Exception e) {
 			throw new Exception("Exception when test: " + reason + "\n" + result, e);

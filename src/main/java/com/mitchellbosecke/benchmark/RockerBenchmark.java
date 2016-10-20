@@ -3,7 +3,6 @@ package com.mitchellbosecke.benchmark;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.io.output.WriterOutputStream;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
@@ -30,7 +29,7 @@ public class RockerBenchmark extends BaseBenchmark {
 	public void run() {
 		final RockerOutputFactory<OutputStreamOutput> out = (contentType, charsetName) -> new OutputStreamOutput(
 				contentType,
-				new WriterOutputStream(getOutput(), charsetName),
+				getOutputStream(),
 				charsetName);
 
 		final String templateName = getTemplateName("");

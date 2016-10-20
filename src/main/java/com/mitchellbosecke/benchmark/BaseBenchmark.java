@@ -2,9 +2,11 @@ package com.mitchellbosecke.benchmark;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -29,7 +31,7 @@ import com.mitchellbosecke.benchmark.model.Status;
 import com.mitchellbosecke.benchmark.model.Stock;
 import com.mitchellbosecke.benchmark.model.XmlResponse;
 import com.mitchellbosecke.benchmark.util.ClasspathResourceUtils;
-import com.mitchellbosecke.benchmark.util.DoNothingWriter;
+import com.mitchellbosecke.benchmark.util.DoNothingOutputStream;
 
 @Fork(0)
 @Warmup(iterations = 10)
@@ -38,6 +40,7 @@ import com.mitchellbosecke.benchmark.util.DoNothingWriter;
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Benchmark)
 public abstract class BaseBenchmark implements Runnable {
+	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 	public static final String TEMPLATE_HTML_STOCKS = "html/stocks.html";
 	public static final String TEMPLATE_XML_RESPONSE = "xml/response.xml";
 
@@ -45,7 +48,7 @@ public abstract class BaseBenchmark implements Runnable {
 
 	private final ClasspathResourceUtils classpathResourceUtils = new ClasspathResourceUtils(this.getClass().getClassLoader());
 
-	private Writer output;
+	private OutputStream output;
 	private final Map<String, Object> context = new HashMap<>();
 
 	@Param({ TEMPLATE_HTML_STOCKS, TEMPLATE_XML_RESPONSE })
@@ -66,7 +69,7 @@ public abstract class BaseBenchmark implements Runnable {
 			context.put("xmlResponse", xmlResponse);
 		}
 
-		output = new DoNothingWriter();
+		output = new DoNothingOutputStream();
 
 		try {
 			setup();
@@ -79,8 +82,12 @@ public abstract class BaseBenchmark implements Runnable {
 		return context;
 	}
 
-	public Writer getOutput() {
+	public OutputStream getOutputStream() {
 		return output;
+	}
+
+	public Writer getOutput() {
+		return new OutputStreamWriter(output);
 	}
 
 	public abstract void setup() throws Exception;
@@ -105,23 +112,24 @@ public abstract class BaseBenchmark implements Runnable {
 		this.templateName = templateName;
 	}
 
-	public void setOutput(final Writer output) {
+	public void setOutputStream(final OutputStream output) {
 		this.output = output;
 	}
 
-	public void test(final String templateName, final Writer writer) throws IOException {
+	public void test(final String templateName, final OutputStream output) throws IOException {
 		setTemplateName(templateName);
 		init();
-		setOutput(writer);
+		setOutputStream(output);
 		run();
-		writer.flush();
+		output.flush();
 	}
 
 	public void test() {
-		try (OutputStreamWriter output = new OutputStreamWriter(System.out)) {
-			test(TEMPLATE_HTML_STOCKS, output);
-			test(TEMPLATE_XML_RESPONSE, output);
-			output.flush();
+		try {
+			test(TEMPLATE_HTML_STOCKS, System.out);
+			System.out.flush();
+			test(TEMPLATE_XML_RESPONSE, System.out);
+			System.out.flush();
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}

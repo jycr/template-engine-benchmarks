@@ -5,7 +5,7 @@
 package com.mitchellbosecke.benchmark;
 
 import java.io.IOException;
-import java.io.Writer;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 	@Benchmark
 	public void run() {
 		try {
-			template.render(getOutput(), getContext());
+			template.render(getOutputStream(), getContext());
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -44,31 +44,31 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 	}
 
 	public static interface NativeTemplate {
-		public void render(final Writer writer, Map<String, Object> params) throws IOException;
+		public void render(final OutputStream writer, Map<String, Object> params) throws IOException;
 	}
 
 	public static final class StocksHtmlTemplate implements NativeTemplate {
 
-		private static final char[] TEMPLATE_01 = ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+		private static final byte[] TEMPLATE_01 = ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 				+ "<!DOCTYPE html>\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n"
 				+ "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n"
 				+ "<title>Stock Prices</title></head><body><h1>Stock Prices</h1>"
 				+ "<table><thead><tr><th>symbol</th><th>name</th><th>price</th><th>change</th><th>ratio</th></tr></thead>"
-				+ "<tbody>").toCharArray();
+				+ "<tbody>").getBytes(DEFAULT_CHARSET);
 
-		private static final char[] TEMPLATE_02 = "<tr><td><a href=\"/stocks/".toCharArray();
+		private static final byte[] TEMPLATE_02 = "<tr><td><a href=\"/stocks/".getBytes(DEFAULT_CHARSET);;
 
-		private static final char[] TEMPLATE_CLOSETAG = "\">".toCharArray();
+		private static final byte[] TEMPLATE_CLOSETAG = "\">".getBytes(DEFAULT_CHARSET);;
 
-		private static final char[] TEMPLATE_04 = "</a></td><td><a href=\"".toCharArray();
+		private static final byte[] TEMPLATE_04 = "</a></td><td><a href=\"".getBytes(DEFAULT_CHARSET);;
 
-		private static final char[] TEMPLATE_05 = "</a></td><td>".toCharArray();
+		private static final byte[] TEMPLATE_05 = "</a></td><td>".getBytes(DEFAULT_CHARSET);;
 
-		private static final char[] TEMPLATE_CELL = "</td><td>".toCharArray();
+		private static final byte[] TEMPLATE_CELL = "</td><td>".getBytes(DEFAULT_CHARSET);;
 
-		private static final char[] TEMPLATE_07 = "</td></tr>\n".toCharArray();
+		private static final byte[] TEMPLATE_07 = "</td></tr>\n".getBytes(DEFAULT_CHARSET);;
 
-		private static final char[] TEMPLATE_08 = "</tbody>\n</table>\n</body>\n</html>".toCharArray();
+		private static final byte[] TEMPLATE_08 = "</tbody>\n</table>\n</body>\n</html>".getBytes(DEFAULT_CHARSET);;
 
 		public static final NativeTemplate INSTANCE = new StocksHtmlTemplate();
 
@@ -76,26 +76,27 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 		}
 
 		@Override
-		public void render(final Writer writer, final Map<String, Object> params) throws IOException {
+		public void render(final OutputStream writer, final Map<String, Object> params) throws IOException {
 			@SuppressWarnings("unchecked")
 			final List<Stock> items = (List<Stock>) params.get("items");
 			writer.write(TEMPLATE_01);
 			for (final Stock item : items) {
-				final char[] symbol = item.getSymbol().toCharArray();
+				final byte[] symbol = item.getSymbol().getBytes(DEFAULT_CHARSET);
+				;
 				writer.write(TEMPLATE_02);
 				writer.write(symbol);
 				writer.write(TEMPLATE_CLOSETAG);
 				writer.write(symbol);
 				writer.write(TEMPLATE_04);
-				writer.write(item.getUrl().toCharArray());
+				writer.write(item.getUrl().getBytes(DEFAULT_CHARSET));
 				writer.write(TEMPLATE_CLOSETAG);
-				writer.write(item.getName().toCharArray());
+				writer.write(item.getName().getBytes(DEFAULT_CHARSET));
 				writer.write(TEMPLATE_05);
-				writer.write(String.valueOf(item.getPrice()).toCharArray());
+				writer.write(String.valueOf(item.getPrice()).getBytes(DEFAULT_CHARSET));
 				writer.write(TEMPLATE_CELL);
-				writer.write(String.valueOf(item.getChange()).toCharArray());
+				writer.write(String.valueOf(item.getChange()).getBytes(DEFAULT_CHARSET));
 				writer.write(TEMPLATE_CELL);
-				writer.write(String.valueOf(item.getRatio()).toCharArray());
+				writer.write(String.valueOf(item.getRatio()).getBytes(DEFAULT_CHARSET));
 				writer.write(TEMPLATE_07);
 			}
 			writer.write(TEMPLATE_08);
@@ -104,11 +105,11 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 
 	public static final class XmlResponseTemplate implements NativeTemplate {
 
-		private static final char[] TEMPLATE_01 = ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<doc><header><uuid>").toCharArray();
-		private static final char[] TEMPLATE_02 = ("</uuid><lastModified>").toCharArray();
-		private static final char[] TEMPLATE_03 = ("</lastModified></header><org-info><org-uuid>").toCharArray();
-		private static final char[] TEMPLATE_04 = ("</org-uuid></org-info><info-status><status-code>").toCharArray();
-		private static final char[] TEMPLATE_05 = ("</status-code></info-status></doc>").toCharArray();
+		private static final byte[] TEMPLATE_01 = ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<doc><header><uuid>").getBytes(DEFAULT_CHARSET);
+		private static final byte[] TEMPLATE_02 = ("</uuid><lastModified>").getBytes(DEFAULT_CHARSET);
+		private static final byte[] TEMPLATE_03 = ("</lastModified></header><org-info><org-uuid>").getBytes(DEFAULT_CHARSET);
+		private static final byte[] TEMPLATE_04 = ("</org-uuid></org-info><info-status><status-code>").getBytes(DEFAULT_CHARSET);
+		private static final byte[] TEMPLATE_05 = ("</status-code></info-status></doc>").getBytes(DEFAULT_CHARSET);
 
 		public static final NativeTemplate INSTANCE = new XmlResponseTemplate();
 
@@ -116,17 +117,17 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 		}
 
 		@Override
-		public void render(final Writer writer, final Map<String, Object> params) throws IOException {
+		public void render(final OutputStream writer, final Map<String, Object> params) throws IOException {
 			@SuppressWarnings("unchecked")
 			final XmlResponse xmlResponse = (XmlResponse) params.get("xmlResponse");
 			writer.write(TEMPLATE_01);
-			writer.write(String.valueOf(xmlResponse.getUuid()).toCharArray());
+			writer.write(String.valueOf(xmlResponse.getUuid()).getBytes(DEFAULT_CHARSET));
 			writer.write(TEMPLATE_02);
-			writer.write(String.valueOf(xmlResponse.getLastModified()).toCharArray());
+			writer.write(String.valueOf(xmlResponse.getLastModified()).getBytes(DEFAULT_CHARSET));
 			writer.write(TEMPLATE_03);
-			writer.write(String.valueOf(xmlResponse.getOrgUuid()).toCharArray());
+			writer.write(String.valueOf(xmlResponse.getOrgUuid()).getBytes(DEFAULT_CHARSET));
 			writer.write(TEMPLATE_04);
-			writer.write(String.valueOf(xmlResponse.getStatus()).toCharArray());
+			writer.write(String.valueOf(xmlResponse.getStatus()).getBytes(DEFAULT_CHARSET));
 			writer.write(TEMPLATE_05);
 		}
 	}

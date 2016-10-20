@@ -1,6 +1,7 @@
 package com.mitchellbosecke.benchmark.jasper;
 
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.naming.NamingException;
 import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
 import javax.servlet.RequestDispatcher;
@@ -31,7 +33,31 @@ public class DummyServletContext implements ServletContext {
 	static {
 		final Map<String, Object> attributes = new HashMap<>();
 		attributes.put(JspApplicationContextImpl.class.getName(), new JspApplicationContextImpl());
-		attributes.put(InstanceManager.class.getName(), DummyInstanceManager.INSTANCE);
+		attributes.put(InstanceManager.class.getName(), new InstanceManager() {
+			@Override
+			public Object newInstance(final Class<?> clazz) throws IllegalAccessException, InvocationTargetException, NamingException, InstantiationException {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public Object newInstance(final String className) throws IllegalAccessException, InvocationTargetException, NamingException, InstantiationException, ClassNotFoundException {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public Object newInstance(final String fqcn, final ClassLoader classLoader)
+					throws IllegalAccessException, InvocationTargetException, NamingException, InstantiationException, ClassNotFoundException {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public void newInstance(final Object o) throws IllegalAccessException, InvocationTargetException, NamingException {
+			}
+
+			@Override
+			public void destroyInstance(final Object o) throws IllegalAccessException, InvocationTargetException {
+			}
+		});
 		ATTRIBUTES = Collections.unmodifiableMap(attributes);
 	}
 

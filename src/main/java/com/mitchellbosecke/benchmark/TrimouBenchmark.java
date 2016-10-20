@@ -4,6 +4,8 @@
  */
 package com.mitchellbosecke.benchmark;
 
+import java.io.PrintStream;
+
 import org.openjdk.jmh.annotations.Benchmark;
 import org.trimou.Mustache;
 import org.trimou.engine.MustacheEngine;
@@ -26,7 +28,7 @@ public class TrimouBenchmark extends BaseBenchmark {
 	@Override
 	@Benchmark
 	public void run() {
-		template.render(getOutput(), getContext());
+		template.render(new PrintStream(getOutputStream()), getContext());
 	}
 
 	public static void main(final String[] args) {

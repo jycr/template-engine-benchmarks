@@ -39,7 +39,7 @@ public class JasperXBenchmark extends BaseBenchmark {
 		try {
 			template._jspService(
 					new DummyHttpServletRequest(getContext()),
-					new DummyHttpServletResponse(getOutput()));
+					new DummyHttpServletResponse(getOutputStream()));
 		} catch (final IOException | ServletException e) {
 			throw new RuntimeException(e);
 		}

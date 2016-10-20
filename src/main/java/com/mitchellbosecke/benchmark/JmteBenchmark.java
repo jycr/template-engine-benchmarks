@@ -22,7 +22,7 @@ public class JmteBenchmark extends BaseBenchmark {
 	@Benchmark
 	public void run() {
 		try {
-			IOUtils.write(engine.transform(tmpl, getContext()), getOutput());
+			IOUtils.write(engine.transform(tmpl, getContext()), getOutputStream());
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}

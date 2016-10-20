@@ -1,21 +1,37 @@
 package com.mitchellbosecke.benchmark.jasper;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Collection;
 import java.util.Locale;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 public class DummyHttpServletResponse implements HttpServletResponse {
 
-	private final PrintWriter output;
+	private final ServletOutputStream wrapper;
 
-	public DummyHttpServletResponse(final Writer output) {
-		this.output = new PrintWriter(output);
+	public DummyHttpServletResponse(final OutputStream output) {
+		wrapper = new ServletOutputStream() {
+			@Override
+			public boolean isReady() {
+				return true;
+			}
+
+			@Override
+			public void setWriteListener(final WriteListener listener) {
+				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public void write(final int b) throws IOException {
+				output.write(b);
+			}
+		};
 	}
 
 	@Override
@@ -30,12 +46,12 @@ public class DummyHttpServletResponse implements HttpServletResponse {
 
 	@Override
 	public ServletOutputStream getOutputStream() throws IOException {
-		throw new UnsupportedOperationException();
+		return wrapper;
 	}
 
 	@Override
 	public PrintWriter getWriter() throws IOException {
-		return output;
+		return new PrintWriter(getOutputStream());
 	}
 
 	@Override

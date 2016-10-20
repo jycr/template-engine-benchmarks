@@ -1,9 +1,11 @@
 package com.mitchellbosecke.benchmark;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Locale;
@@ -146,31 +148,32 @@ public class ExpectedOutputTest {
 	}
 
 	public void testSingle(final BaseBenchmark b) throws Exception {
-		final StringWriter output = new StringWriter();
-		b.test(templateName, output);
-
-		final String reason = templateName + " with " + b.getClass().getSimpleName();
-		final String result = output.toString();
-		LOG.debug("{}. Output:\n{}", reason, result);
-
-		try {
-			assertThat(
-					reason,
-					result,
-					CompareMatcher
-							.isSimilarTo(
-									expected)
-							.normalizeWhitespace());
+		String reason = null;
+		String result = null;
+		try (final ByteArrayOutputStream output = new ByteArrayOutputStream()) {
+			b.test(templateName, output);
+			output.flush();
+			result = output.toString(BaseBenchmark.DEFAULT_CHARSET.toString());
 		} catch (final Exception e) {
 			throw new Exception("Exception when test: " + reason + "\n" + result, e);
 		}
+		assertNotNull(result);
+		assertFalse(result.isEmpty());
+		reason = templateName + " with " + b.getClass().getSimpleName();
+		LOG.debug("{}. Output:\n{}", reason, result);
+		assertThat(
+				reason,
+				result,
+				CompareMatcher
+						.isSimilarTo(expected)
+						.normalizeWhitespace());
 	}
 
 	public void testTwice(final BaseBenchmark b) throws Exception {
-		final StringWriter output = new StringWriter();
+		final ByteArrayOutputStream output = new ByteArrayOutputStream();
 		b.setTemplateName(templateName);
 		b.init();
-		b.setOutput(output);
+		b.setOutputStream(output);
 		b.run();
 		b.run();
 	}

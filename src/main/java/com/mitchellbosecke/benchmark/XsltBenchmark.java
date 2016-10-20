@@ -55,7 +55,7 @@ public class XsltBenchmark extends BaseBenchmark {
 			final JAXBSource input = new JAXBSource(
 					context,
 					Model.create(getContext()));
-			final Result output = new StreamResult(getOutput());
+			final Result output = new StreamResult(getOutputStream());
 			template
 					.newTransformer()
 					.transform(input, output);

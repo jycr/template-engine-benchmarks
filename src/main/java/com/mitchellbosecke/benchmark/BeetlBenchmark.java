@@ -5,6 +5,7 @@
 package com.mitchellbosecke.benchmark;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Writer;
 
 import org.beetl.core.Configuration;
@@ -42,7 +43,7 @@ public class BeetlBenchmark extends BaseBenchmark {
 	@Benchmark
 	public void run() {
 		template.binding(getContext());
-		try (Writer output = getOutput()) {
+		try (OutputStream output = getOutputStream()) {
 			template.renderTo(output);
 		} catch (final IOException e) {
 			throw new RuntimeException(e);

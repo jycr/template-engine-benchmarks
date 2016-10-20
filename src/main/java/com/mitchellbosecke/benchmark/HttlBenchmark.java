@@ -34,7 +34,7 @@ public class HttlBenchmark extends BaseBenchmark {
 	@Benchmark
 	public void run() {
 		try {
-			template.render(getContext(), getOutput());
+			template.render(getContext(), getOutputStream());
 		} catch (IOException | ParseException e) {
 			throw new RuntimeException(e);
 		}

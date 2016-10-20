@@ -32,7 +32,7 @@ public class RythmBenchmark extends BaseBenchmark {
 	@Override
 	@Benchmark
 	public void run() {
-		engine.render(getOutput(), template, getContext());
+		engine.render(getOutputStream(), template, getContext());
 	}
 
 	public static void main(final String[] args) {

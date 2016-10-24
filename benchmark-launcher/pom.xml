@@ -201,4 +201,14 @@
 			</build>
 		</profile>
 	</profiles>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+			<!--  To avoid conflict between Handlebars and Twirl -->
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>3.5</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

@@ -1,5 +1,6 @@
 package com.mitchellbosecke.benchmark;
 
+import static com.mitchellbosecke.benchmark.model.ITemplate.DEFAULT_CHARSET;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
@@ -23,19 +24,20 @@ import org.slf4j.LoggerFactory;
 import org.xmlunit.builder.Input;
 import org.xmlunit.matchers.CompareMatcher;
 
+import com.mitchellbosecke.benchmark.model.ITemplate.Template;
 import com.mitchellbosecke.benchmark.util.ClasspathResourceUtils;
 
 @RunWith(Parameterized.class)
 public class ExpectedOutputTest {
 	private static final Logger LOG = LoggerFactory.getLogger(ExpectedOutputTest.class);
 
-	private final String templateName;
+	private final Template template;
 
 	private Source expected;
 
 	@Parameters
-	public static Collection<String> templateNames() {
-		return Arrays.asList("html/stocks.html", "xml/response.xml");
+	public static Collection<Template> templateNames() {
+		return Arrays.asList(Template.values());
 	}
 
 	@BeforeClass
@@ -43,13 +45,21 @@ public class ExpectedOutputTest {
 		Locale.setDefault(Locale.ENGLISH);
 	}
 
-	public ExpectedOutputTest(final String templateName) {
-		this.templateName = templateName;
+	public ExpectedOutputTest(final Template template) {
+		this.template = template;
 	}
 
 	@Before
 	public void init() throws IOException {
-		expected = Input.from(new ClasspathResourceUtils(getClass().getClassLoader()).getAsString(BaseBenchmark.TEMPLATE_DIR + "/" + templateName)).build();
+		expected = Input.from(
+				new ClasspathResourceUtils(getClass().getClassLoader())
+						.getAsString(BaseBenchmark.TEMPLATE_DIR + "/" + template.getPath()))
+				.build();
+	}
+
+	@Test
+	public void testTwirlBenchmark() throws Exception {
+		test(new TwirlBenchmark());
 	}
 
 	@Test
@@ -131,17 +141,17 @@ public class ExpectedOutputTest {
 		String reason = null;
 		String result = null;
 		try (final ByteArrayOutputStream output = new ByteArrayOutputStream()) {
-			b.test(templateName, output);
+			b.test(template, output);
 			output.flush();
 			output.close();
-			result = output.toString(BaseBenchmark.DEFAULT_CHARSET.toString());
+			result = output.toString(DEFAULT_CHARSET.toString());
 		} catch (final Exception e) {
 			throw new Exception("Exception when test: " + reason + "\n" + result, e);
 		}
 		assertNotNull(result);
 		assertFalse(result.isEmpty());
-		reason = templateName + " with " + b.getClass().getSimpleName();
-		LOG.debug("{}. Output:\n{}", reason, result);
+		reason = template + " with " + b.getClass().getSimpleName();
+		LOG.info("{}. Output:\n{}", reason, result);
 		assertThat(
 				reason,
 				result,
@@ -152,7 +162,7 @@ public class ExpectedOutputTest {
 
 	public void testTwice(final BaseBenchmark b) throws Exception {
 		final ByteArrayOutputStream output = new ByteArrayOutputStream();
-		b.setTemplateName(templateName);
+		b.setTemplate(template);
 		b.init();
 		b.setOutputStream(output);
 		b.run();

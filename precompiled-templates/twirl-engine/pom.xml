@@ -42,7 +42,10 @@
 					</execution>
 				</executions>
 				<configuration>
-				<sourceDir>${project.build.directory}/generated-sources/twirl/</sourceDir>
+					<sourceDir>${project.build.directory}/generated-sources/twirl/</sourceDir>
+					<args>
+						<arg>-optimise</arg>
+					</args>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -1,5 +1,7 @@
 package com.mitchellbosecke.benchmark;
 
+import static com.mitchellbosecke.benchmark.model.ITemplate.DEFAULT_CHARSET;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;

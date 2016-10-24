@@ -1,5 +1,8 @@
 package com.mitchellbosecke.benchmark;
 
+import static com.mitchellbosecke.benchmark.model.ITemplate.PAGE_ATTRIBUTE_ITEMS;
+import static com.mitchellbosecke.benchmark.model.ITemplate.PAGE_ATTRIBUTE_XMLRESPONSE;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;

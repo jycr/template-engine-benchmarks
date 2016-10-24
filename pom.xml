@@ -25,16 +25,6 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>com.jakewharton.twirl</groupId>
-					<artifactId>twirl-maven-plugin</artifactId>
-					<version>1.0.5</version>
-				</plugin>
-				<plugin>
-					<groupId>net.alchim31.maven</groupId>
-					<artifactId>scala-maven-plugin</artifactId>
-					<version>3.2.2</version>
-				</plugin>
-				<plugin>
 					<!-- JSP class generation -->
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-antrun-plugin</artifactId>

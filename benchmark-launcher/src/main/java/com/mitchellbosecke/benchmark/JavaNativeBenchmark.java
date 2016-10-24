@@ -4,6 +4,12 @@
  */
 package com.mitchellbosecke.benchmark;
 
+import static com.mitchellbosecke.benchmark.model.ITemplate.DEFAULT_CHARSET;
+import static com.mitchellbosecke.benchmark.model.ITemplate.PAGE_ATTRIBUTE_ITEMS;
+import static com.mitchellbosecke.benchmark.model.ITemplate.PAGE_ATTRIBUTE_XMLRESPONSE;
+import static com.mitchellbosecke.benchmark.model.ITemplate.Template.responseXml;
+import static com.mitchellbosecke.benchmark.model.ITemplate.Template.stocksHtml;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
@@ -11,21 +17,22 @@ import java.util.Map;
 
 import org.openjdk.jmh.annotations.Benchmark;
 
+import com.mitchellbosecke.benchmark.model.ITemplate.Template;
 import com.mitchellbosecke.benchmark.model.Stock;
 import com.mitchellbosecke.benchmark.model.XmlResponse;
 
 public class JavaNativeBenchmark extends BaseBenchmark {
-	private NativeTemplate template;
+	private NativeTemplate nativeTemplate;
 
 	@Override
 	public void setup() throws Exception {
-		final String templateName = getTemplateName("");
-		if (TEMPLATE_HTML_STOCKS.equals(templateName)) {
-			template = StocksHtmlTemplate.INSTANCE;
-		} else if (TEMPLATE_XML_RESPONSE.equals(templateName)) {
-			template = XmlResponseTemplate.INSTANCE;
+		final Template template = getTemplate();
+		if (stocksHtml == template) {
+			nativeTemplate = StocksHtmlTemplate.INSTANCE;
+		} else if (responseXml == template) {
+			nativeTemplate = XmlResponseTemplate.INSTANCE;
 		} else {
-			throw new IllegalStateException("Template unknown: " + templateName);
+			throw new IllegalStateException("Template unknown: " + nativeTemplate);
 		}
 	}
 
@@ -33,7 +40,7 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 	@Benchmark
 	public void run() {
 		try {
-			template.render(getOutputStream(), getContext());
+			nativeTemplate.render(getOutputStream(), getContext());
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -117,7 +124,6 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 
 		@Override
 		public void render(final OutputStream writer, final Map<String, Object> params) throws IOException {
-			@SuppressWarnings("unchecked")
 			final XmlResponse xmlResponse = (XmlResponse) params.get(PAGE_ATTRIBUTE_XMLRESPONSE);
 			writer.write(TEMPLATE_01);
 			writer.write(String.valueOf(xmlResponse.getUuid()).getBytes(DEFAULT_CHARSET));

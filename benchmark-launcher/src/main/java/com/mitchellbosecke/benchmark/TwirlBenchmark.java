@@ -1,21 +1,19 @@
 package com.mitchellbosecke.benchmark;
 
+import static com.mitchellbosecke.benchmark.model.ITemplate.DEFAULT_CHARSET;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
 
+import com.mitchellbosecke.benchmark.model.ITemplate.Template;
+
 import templates.twirl.html.stocks;
 import templates.twirl.xml.response;
 
-/**
- * Benchmark for Rocker template engine by Fizzed.
- *
- * https://github.com/fizzed/rocker
- */
 public class TwirlBenchmark extends BaseBenchmark {
-
 	@Override
 	@Setup
 	public void setup() throws IOException {
@@ -24,29 +22,24 @@ public class TwirlBenchmark extends BaseBenchmark {
 	@Override
 	@Benchmark
 	public void run() {
-		// final RockerOutputFactory<OutputStreamOutput> out = (contentType, charsetName) -> new OutputStreamOutput(
-		// contentType,
-		// getOutputStream(),
-		// charsetName);
-
-		final String templateName = getTemplateName("");
+		final Template template = getTemplate();
 		try (OutputStream output = getOutputStream()) {
-			if (TEMPLATE_XML_RESPONSE.equals(templateName)) {
+			if (template == Template.responseXml) {
 				output.write(
 						response.apply(
 								getContextXmlResponse())
 								.body()
 								.getBytes(DEFAULT_CHARSET));
-			} else if (TEMPLATE_HTML_STOCKS.equals(templateName)) {
+			} else if (template == Template.stocksHtml) {
 				output.write(
 						stocks.apply(
 								getContextItems())
 								.body()
 								.getBytes(DEFAULT_CHARSET));
 			} else {
-				throw new IllegalArgumentException("Template Name not known: " + templateName);
+				throw new IllegalArgumentException("Template Name not known: " + template);
 			}
-		} catch (final Exception e) {
+		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
 	}

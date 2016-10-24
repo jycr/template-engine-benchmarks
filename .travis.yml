@@ -7,9 +7,12 @@ addons:
   apt:
     packages:
     - gnuplot
+branches:
+  only:
+    - develop
 script:
     - mvn clean install
-    - mvn -f=benchmark-launcher/pom.xml exec:java -Pperf
+    - mvn -f=benchmark-launcher/pom.xml 'exec:java' -Pperf
     - echo ================================================================================
     - cat benchmark-launcher/target/jmh-result.csv
     - echo ================================================================================

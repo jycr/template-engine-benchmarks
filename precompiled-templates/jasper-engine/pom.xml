@@ -26,12 +26,19 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<target>
-								<taskdef name="jasper" classname="org.apache.jasper.JspC"
-									classpathref="maven.plugin.classpath" />
 								<mkdir dir="${generated-sources}/jasper-jsp" />
-								<jasper uriroot="${template-dir}" outputDir="${generated-sources}/jasper-jsp"
+								<taskdef 
+									name="jasper" 
+									classname="org.apache.jasper.JspC"
+									classpathref="maven.plugin.classpath" />
+								<jasper 
+									uriroot="${template-dir}" 
+									outputDir="${generated-sources}/jasper-jsp"
+									package="templates.jasper"
 									trimSpaces="true"
-									validateTld="false" validateXml="true" compile="false"
+									validateTld="false" 
+									validateXml="true" 
+									compile="false"
 									genStringAsCharArray="true" />
 							</target>
 						</configuration>

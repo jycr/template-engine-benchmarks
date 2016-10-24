@@ -151,7 +151,7 @@ public class ExpectedOutputTest {
 		assertNotNull(result);
 		assertFalse(result.isEmpty());
 		reason = template + " with " + b.getClass().getSimpleName();
-		LOG.info("{}. Output:\n{}", reason, result);
+		LOG.debug("{}. Output:\n{}", reason, result);
 		assertThat(
 				reason,
 				result,

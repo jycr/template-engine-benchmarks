@@ -82,7 +82,12 @@ public abstract class BaseBenchmark implements Runnable {
 
 	public Template getTemplate() {
 		if ((template == null) && (benchmarkTemplatePath != null)) {
-			template = Template.valueOf(benchmarkTemplatePath);
+			for (final Template t : Template.values()) {
+				if (benchmarkTemplatePath.equals(t.getPath())) {
+					template = t;
+					break;
+				}
+			}
 		}
 		return template;
 	}

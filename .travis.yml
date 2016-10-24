@@ -12,7 +12,7 @@ branches:
     - develop
 script:
     - mvn clean install
-    - mvn -f=benchmark-launcher/pom.xml 'exec:java' -Pperf
+    - mvn -f=benchmark-launcher/pom.xml verify -Pperf
     - echo ================================================================================
     - cat benchmark-launcher/target/jmh-result.csv
     - echo ================================================================================

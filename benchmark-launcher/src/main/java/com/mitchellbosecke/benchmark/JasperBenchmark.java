@@ -15,8 +15,9 @@ import org.openjdk.jmh.annotations.Benchmark;
 import com.mitchellbosecke.benchmark.jasper.DummyHttpServletRequest;
 import com.mitchellbosecke.benchmark.jasper.DummyHttpServletResponse;
 import com.mitchellbosecke.benchmark.jasper.DummyServletConfig;
-import com.mitchellbosecke.benchmark.jasper.templates.jasper.response_xml_jsp;
-import com.mitchellbosecke.benchmark.jasper.templates.jasper.stocks_html_jsp;
+
+import templates.jasper.response_xml_jsp;
+import templates.jasper.stocks_html_jsp;
 
 public class JasperBenchmark extends BaseBenchmark {
 	private HttpJspBase template;

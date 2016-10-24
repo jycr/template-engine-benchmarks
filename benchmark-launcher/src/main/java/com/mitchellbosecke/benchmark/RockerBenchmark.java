@@ -1,7 +1,6 @@
 package com.mitchellbosecke.benchmark;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
@@ -9,8 +8,6 @@ import org.openjdk.jmh.annotations.Setup;
 import com.fizzed.rocker.RenderingException;
 import com.fizzed.rocker.RockerOutputFactory;
 import com.fizzed.rocker.runtime.OutputStreamOutput;
-import com.mitchellbosecke.benchmark.model.Stock;
-import com.mitchellbosecke.benchmark.model.XmlResponse;
 
 import templates.rocker.response;
 import templates.rocker.stocks;
@@ -39,13 +36,13 @@ public class RockerBenchmark extends BaseBenchmark {
 		try {
 			if (TEMPLATE_XML_RESPONSE.equals(templateName)) {
 				response
-						.template((XmlResponse) getContext().get("xmlResponse"))
+						.template(getContextXmlResponse())
 						.render(out)
 						.getStream()
 						.flush();
 			} else if (TEMPLATE_HTML_STOCKS.equals(templateName)) {
 				stocks
-						.template((List<Stock>) getContext().get("items"))
+						.template(getContextItems())
 						.render(out)
 						.getStream()
 						.flush();

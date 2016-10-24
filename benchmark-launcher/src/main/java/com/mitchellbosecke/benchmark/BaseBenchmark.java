@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
@@ -44,6 +45,9 @@ public abstract class BaseBenchmark implements Runnable {
 
 	public static final String TEMPLATE_DIR = "templates";
 
+	public static final String PAGE_ATTRIBUTE_ITEMS = "items";
+	public static final String PAGE_ATTRIBUTE_XMLRESPONSE = "xmlResponse";
+
 	private final ClasspathResourceUtils classpathResourceUtils = new ClasspathResourceUtils(this.getClass().getClassLoader());
 
 	private OutputStream output;
@@ -56,7 +60,7 @@ public abstract class BaseBenchmark implements Runnable {
 	public void init() {
 		Locale.setDefault(Locale.ENGLISH);
 		if (TEMPLATE_HTML_STOCKS.equals(templateName)) {
-			context.put("items", Stock.dummyItems());
+			context.put(PAGE_ATTRIBUTE_ITEMS, Stock.dummyItems());
 		}
 		if (TEMPLATE_XML_RESPONSE.equals(templateName)) {
 			final XmlResponse xmlResponse = new XmlResponse();
@@ -64,7 +68,7 @@ public abstract class BaseBenchmark implements Runnable {
 			xmlResponse.setOrgUuid(UUID.fromString("89697e5a-15b4-4d32-b37f-ad17f6ae0fdf"));
 			xmlResponse.setLastModified(ZonedDateTime.of(2016, 10, 18, 22, 28, 33, 826000000, ZoneId.from(ZoneOffset.ofHoursMinutes(1, 0))));
 			xmlResponse.setStatus(Status.OK);
-			context.put("xmlResponse", xmlResponse);
+			context.put(PAGE_ATTRIBUTE_XMLRESPONSE, xmlResponse);
 		}
 
 		output = new DoNothingOutputStream();
@@ -78,6 +82,14 @@ public abstract class BaseBenchmark implements Runnable {
 
 	public Map<String, Object> getContext() {
 		return context;
+	}
+
+	public XmlResponse getContextXmlResponse() {
+		return (XmlResponse) getContext().get(PAGE_ATTRIBUTE_XMLRESPONSE);
+	}
+
+	public List<Stock> getContextItems() {
+		return (List<Stock>) getContext().get(PAGE_ATTRIBUTE_ITEMS);
 	}
 
 	public OutputStream getOutputStream() {

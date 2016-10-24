@@ -76,11 +76,8 @@ public class XsltBenchmark extends BaseBenchmark {
 		@SuppressWarnings("unchecked")
 		public static final Model create(final Map<String, Object> map) {
 			final Model result = new Model();
-			if (map.get("items") != null) {
-				result.item = (List<Stock>) map.get("items");
-			} else if (map.get("xmlResponse") != null) {
-				result.xmlResponse = (XmlResponse) map.get("xmlResponse");
-			}
+			result.item = (List<Stock>) map.get(PAGE_ATTRIBUTE_ITEMS);
+			result.xmlResponse = (XmlResponse) map.get(PAGE_ATTRIBUTE_XMLRESPONSE);
 			return result;
 		}
 	}

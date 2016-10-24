@@ -78,7 +78,7 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 		@Override
 		public void render(final OutputStream writer, final Map<String, Object> params) throws IOException {
 			@SuppressWarnings("unchecked")
-			final List<Stock> items = (List<Stock>) params.get("items");
+			final List<Stock> items = (List<Stock>) params.get(PAGE_ATTRIBUTE_ITEMS);
 			writer.write(TEMPLATE_01);
 			for (final Stock item : items) {
 				final byte[] symbol = item.getSymbol().getBytes(DEFAULT_CHARSET);
@@ -118,7 +118,7 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 		@Override
 		public void render(final OutputStream writer, final Map<String, Object> params) throws IOException {
 			@SuppressWarnings("unchecked")
-			final XmlResponse xmlResponse = (XmlResponse) params.get("xmlResponse");
+			final XmlResponse xmlResponse = (XmlResponse) params.get(PAGE_ATTRIBUTE_XMLRESPONSE);
 			writer.write(TEMPLATE_01);
 			writer.write(String.valueOf(xmlResponse.getUuid()).getBytes(DEFAULT_CHARSET));
 			writer.write(TEMPLATE_02);

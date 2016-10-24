@@ -1,9 +1,13 @@
 package com.mitchellbosecke.benchmark;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Setup;
+
+import templates.twirl.html.stocks;
+import templates.twirl.xml.response;
 
 /**
  * Benchmark for Rocker template engine by Fizzed.
@@ -26,20 +30,19 @@ public class TwirlBenchmark extends BaseBenchmark {
 		// charsetName);
 
 		final String templateName = getTemplateName("");
-		try {
+		try (OutputStream output = getOutputStream()) {
 			if (TEMPLATE_XML_RESPONSE.equals(templateName)) {
-				// templates.xml.response
-				// .template((XmlResponse) getContext().get("xmlResponse"))
-				// .render(out)
-				// .getStream()
-				// .flush();
+				output.write(
+						response.apply(
+								getContextXmlResponse())
+								.body()
+								.getBytes(DEFAULT_CHARSET));
 			} else if (TEMPLATE_HTML_STOCKS.equals(templateName)) {
-				// stocks;
-				// templates.html.stocks
-				// .template((List<Stock>) getContext().get("items"))
-				// .render(out)
-				// .getStream()
-				// .flush();
+				output.write(
+						stocks.apply(
+								getContextItems())
+								.body()
+								.getBytes(DEFAULT_CHARSET));
 			} else {
 				throw new IllegalArgumentException("Template Name not known: " + templateName);
 			}

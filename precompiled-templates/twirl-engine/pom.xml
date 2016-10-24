@@ -28,9 +28,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<templateDirectory>${project.basedir}/src/main/resources</templateDirectory>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>net.alchim31.maven</groupId>
@@ -44,28 +41,17 @@
 						<phase>compile</phase>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>${generated-sources}/twirl</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
+				<configuration>
+				<sourceDir>${project.build.directory}/generated-sources/twirl/</sourceDir>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>model</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>com.typesafe.play</groupId>
 			<artifactId>twirl-api_2.11</artifactId>

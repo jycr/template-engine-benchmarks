@@ -15,19 +15,19 @@ import org.openjdk.jmh.annotations.Benchmark;
 import com.mitchellbosecke.benchmark.jasper.DummyHttpServletRequest;
 import com.mitchellbosecke.benchmark.jasper.DummyHttpServletResponse;
 import com.mitchellbosecke.benchmark.jasper.DummyServletConfig;
-import com.mitchellbosecke.benchmark.jasper.templates.html.stocks_html_jsp;
-import com.mitchellbosecke.benchmark.jasper.templates.xml.response_xml_jsp;
+import com.mitchellbosecke.benchmark.jasper.templates.jasper.response_xml_jspx;
+import com.mitchellbosecke.benchmark.jasper.templates.jasper.stocks_html_jspx;
 
-public class JasperBenchmark extends BaseBenchmark {
+public class JasperXBenchmark extends BaseBenchmark {
 	private HttpJspBase template;
 
 	@Override
 	public void setup() throws Exception {
 		final String templateName = getTemplateName("");
 		if (TEMPLATE_XML_RESPONSE.equals(templateName)) {
-			template = new response_xml_jsp();
+			template = new response_xml_jspx();
 		} else if (TEMPLATE_HTML_STOCKS.equals(templateName)) {
-			template = new stocks_html_jsp();
+			template = new stocks_html_jspx();
 		} else {
 			throw new IllegalArgumentException("Template Name not known: " + templateName);
 		}
@@ -47,6 +47,6 @@ public class JasperBenchmark extends BaseBenchmark {
 	}
 
 	public static void main(final String[] args) {
-		new JasperBenchmark().test();
+		new JasperXBenchmark().test();
 	}
 }

@@ -10,8 +10,8 @@ import org.openjdk.jmh.annotations.Benchmark;
 import com.mitchellbosecke.benchmark.model.Stock;
 import com.mitchellbosecke.benchmark.model.XmlResponse;
 
-import templates.html.stocks_html;
-import templates.xml.response_xml;
+import templates.jamon.response_xml;
+import templates.jamon.stocks_html;
 
 /**
  * @see "http://www.jamon.org"

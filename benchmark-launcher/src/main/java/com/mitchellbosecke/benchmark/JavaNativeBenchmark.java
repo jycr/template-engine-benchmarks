@@ -56,19 +56,19 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 				+ "<table><thead><tr><th>symbol</th><th>name</th><th>price</th><th>change</th><th>ratio</th></tr></thead>"
 				+ "<tbody>").getBytes(DEFAULT_CHARSET);
 
-		private static final byte[] TEMPLATE_02 = "<tr><td><a href=\"/stocks/".getBytes(DEFAULT_CHARSET);;
+		private static final byte[] TEMPLATE_02 = "<tr><td><a href=\"/stocks/".getBytes(DEFAULT_CHARSET);
 
-		private static final byte[] TEMPLATE_CLOSETAG = "\">".getBytes(DEFAULT_CHARSET);;
+		private static final byte[] TEMPLATE_CLOSETAG = "\">".getBytes(DEFAULT_CHARSET);
 
-		private static final byte[] TEMPLATE_04 = "</a></td><td><a href=\"".getBytes(DEFAULT_CHARSET);;
+		private static final byte[] TEMPLATE_04 = "</a></td><td><a href=\"".getBytes(DEFAULT_CHARSET);
 
-		private static final byte[] TEMPLATE_05 = "</a></td><td>".getBytes(DEFAULT_CHARSET);;
+		private static final byte[] TEMPLATE_05 = "</a></td><td>".getBytes(DEFAULT_CHARSET);
 
-		private static final byte[] TEMPLATE_CELL = "</td><td>".getBytes(DEFAULT_CHARSET);;
+		private static final byte[] TEMPLATE_CELL = "</td><td>".getBytes(DEFAULT_CHARSET);
 
-		private static final byte[] TEMPLATE_07 = "</td></tr>\n".getBytes(DEFAULT_CHARSET);;
+		private static final byte[] TEMPLATE_07 = "</td></tr>\n".getBytes(DEFAULT_CHARSET);
 
-		private static final byte[] TEMPLATE_08 = "</tbody>\n</table>\n</body>\n</html>".getBytes(DEFAULT_CHARSET);;
+		private static final byte[] TEMPLATE_08 = "</tbody>\n</table>\n</body>\n</html>".getBytes(DEFAULT_CHARSET);
 
 		public static final NativeTemplate INSTANCE = new StocksHtmlTemplate();
 
@@ -82,7 +82,6 @@ public class JavaNativeBenchmark extends BaseBenchmark {
 			writer.write(TEMPLATE_01);
 			for (final Stock item : items) {
 				final byte[] symbol = item.getSymbol().getBytes(DEFAULT_CHARSET);
-				;
 				writer.write(TEMPLATE_02);
 				writer.write(symbol);
 				writer.write(TEMPLATE_CLOSETAG);

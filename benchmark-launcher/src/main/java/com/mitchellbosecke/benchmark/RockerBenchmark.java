@@ -12,6 +12,9 @@ import com.fizzed.rocker.runtime.OutputStreamOutput;
 import com.mitchellbosecke.benchmark.model.Stock;
 import com.mitchellbosecke.benchmark.model.XmlResponse;
 
+import templates.rocker.response;
+import templates.rocker.stocks;
+
 /**
  * Benchmark for Rocker template engine by Fizzed.
  *
@@ -35,13 +38,13 @@ public class RockerBenchmark extends BaseBenchmark {
 		final String templateName = getTemplateName("");
 		try {
 			if (TEMPLATE_XML_RESPONSE.equals(templateName)) {
-				templates.xml.response
+				response
 						.template((XmlResponse) getContext().get("xmlResponse"))
 						.render(out)
 						.getStream()
 						.flush();
 			} else if (TEMPLATE_HTML_STOCKS.equals(templateName)) {
-				templates.html.stocks
+				stocks
 						.template((List<Stock>) getContext().get("items"))
 						.render(out)
 						.getStream()

@@ -76,12 +76,13 @@ filterData "stocks.html"
 filterData "response.xml"
 
 pushd "$TARGET_DIR"
+	git config --global push.default simple
 	git config --global user.name "Travis"
 	git config --global user.email "travis@travis-ci.org"
-	git clone --quiet https://$GH_TOKEN@github.com/jycr/template-engine-benchmarks.wiki.git
+	git clone --quiet --branch=master https://$GH_TOKEN@github.com/jycr/template-engine-benchmarks.wiki.git
 	pushd "template-engine-benchmarks.wiki"
 		mv ../jmh*.svg ../jmh*.png graph/
 		git add graph/*
-		git push origin
+		git push -fq origin master
 	popd
 popd

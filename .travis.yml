@@ -16,9 +16,9 @@ script:
     - echo ================================================================================
     - cat benchmark-launcher/target/jmh-result.csv
     - echo ================================================================================
-    - cat benchmark-launcher/target/jmh-result-benchmark-stocks.html.svg
+    - cat benchmark-launcher/target/template-engine-benchmarks.wiki/graph/jmh-result-benchmark-stocks.html.svg
     - echo ================================================================================
-    - cat benchmark-launcher/target/jmh-result-benchmark-response.xml.svg
+    - cat benchmark-launcher/target/template-engine-benchmarks.wiki/graph/jmh-result-benchmark-response.xml.svg
     - echo ================================================================================
     - bash ./build_graph.sh
     - echo ================================================================================

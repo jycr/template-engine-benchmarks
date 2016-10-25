@@ -1,8 +1,9 @@
 #!/bin/sh
 
-set -o errexit -o nounset
+#set -o errexit -o nounset
 # errexit: stop executing if any errors occur, by default bash will just continue past any errors to run the next command
 # nounset: stop executing if an unset variable is encountered, by default bash will use an empty string for the value of such variables.
+set -o errexit
 
 
 TARGET_DIR=benchmark-launcher/target

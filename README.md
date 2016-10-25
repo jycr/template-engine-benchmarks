@@ -50,4 +50,4 @@ To run a single benchmark, such as Mustache, use:
 Example Results
 ===============
 
-Benchmark result can also be available at https://travis-ci.org/jycr/template-engine-benchmarks
+Benchmark result can also be available at https://github.com/jycr/template-engine-benchmarks/wiki

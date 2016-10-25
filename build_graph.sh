@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #set -o errexit -o nounset
 # errexit: stop executing if any errors occur, by default bash will just continue past any errors to run the next command
@@ -75,14 +75,23 @@ function filterData() {
 filterData "stocks.html"
 filterData "response.xml"
 
+GIT_REV=$(git log -1 --format="Based on rev:%h (%ci)")
+
+sed 's,^Based on rev:.+? \([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}.+?$,'$GIT_REV','
+
+WIKI_PAGE="Home.md"
+
 pushd "$TARGET_DIR"
+	rm -rf "template-engine-benchmarks.wiki"
 	git config --global push.default simple
 	git config --global user.name "Travis"
 	git config --global user.email "travis@travis-ci.org"
 	git clone --quiet --branch=master https://$GH_TOKEN@github.com/jycr/template-engine-benchmarks.wiki.git
 	pushd "template-engine-benchmarks.wiki"
+		sed -r "s,^Based on rev:.+?[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}.+?$,$GIT_REV," -i "$WIKI_PAGE"
 		mv ../jmh*.svg ../jmh*.png graph/
-		git add graph/*
+		git add "$WIKI_PAGE" graph/*
+		git commit -m "Update Graph"
 		git push -fq origin master
 	popd
 popd

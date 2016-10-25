@@ -77,8 +77,6 @@ filterData "response.xml"
 
 GIT_REV=$(git log -1 --format="Based on rev:%h (%ci)")
 
-sed 's,^Based on rev:.+? \([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}.+?$,'$GIT_REV','
-
 WIKI_PAGE="Home.md"
 
 pushd "$TARGET_DIR"

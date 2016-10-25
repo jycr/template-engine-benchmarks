@@ -7,16 +7,18 @@ addons:
   apt:
     packages:
     - gnuplot
+branches:
+  only:
+    - develop
 script:
-    - mvn clean verify -Pperf
+    - mvn clean install
+    - mvn -f=benchmark-launcher/pom.xml verify -Pperf
     - echo ================================================================================
-    - cat target/jmh-result.csv
+    - cat benchmark-launcher/target/jmh-result.csv
     - echo ================================================================================
-    - grep "html/stocks.html" target/jmh-result.csv | sed -r 's,^".+?\.([^."]+?)Benchmark[^"]*","\1",' > target/jmh-result-benchmark-stocks.html.csv
-    - grep "xml/response.xml" target/jmh-result.csv | sed -r 's,^".+?\.([^."]+?)Benchmark[^"]*","\1",' > target/jmh-result-benchmark-response.xml.csv
-    - gnuplot benchmark-stocks.html.plot
-    - gnuplot benchmark-response.xml.plot
+    - bash ./build_graph.sh
     - echo ================================================================================
-    - cat target/jmh-result-benchmark-stocks.html.svg
-    - cat target/jmh-result-benchmark-response.xml.svg
+    - cat benchmark-launcher/target/template-engine-benchmarks.wiki/graph/jmh-result-benchmark-stocks.html.svg
+    - echo ================================================================================
+    - cat benchmark-launcher/target/template-engine-benchmarks.wiki/graph/jmh-result-benchmark-response.xml.svg
     - echo ================================================================================

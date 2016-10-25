@@ -1,0 +1,135 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.github.benchmark.template</groupId>
+		<artifactId>precompiled-templates</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>jasper-engine</artifactId>
+
+	<name>Engine :: Jasper</name>
+
+	<properties>
+		<jasper.version>8.0.38</jasper.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<!-- JSP class generation -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>pre-compile-jsp</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<target>
+								<mkdir dir="${generated-sources}/jasper-jsp" />
+								<taskdef 
+									name="jasper" 
+									classname="org.apache.jasper.JspC"
+									classpathref="maven.plugin.classpath" />
+								<jasper 
+									uriroot="${template-dir}" 
+									outputDir="${generated-sources}/jasper-jsp"
+									package="templates.jasper"
+									trimSpaces="true"
+									validateTld="false" 
+									validateXml="true" 
+									compile="false"
+									genStringAsCharArray="true" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.tomcat.embed</groupId>
+						<artifactId>tomcat-embed-jasper</artifactId>
+						<version>${jasper.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.tomcat.embed</groupId>
+						<artifactId>tomcat-embed-logging-juli</artifactId>
+						<version>${jasper.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>javax.servlet</groupId>
+						<artifactId>javax.servlet-api</artifactId>
+						<version>3.1.0</version>
+					</dependency>
+					<dependency>
+						<groupId>javax.servlet.jsp</groupId>
+						<artifactId>javax.servlet.jsp-api</artifactId>
+						<version>2.3.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.apache.tomcat.embed</groupId>
+						<artifactId>tomcat-embed-el</artifactId>
+						<version>${jasper.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.glassfish.web</groupId>
+						<artifactId>javax.servlet.jsp.jstl</artifactId>
+						<version>1.2.4</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${generated-sources}/jasper-jsp</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<version>${jasper.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-logging-juli</artifactId>
+			<version>${jasper.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-el</artifactId>
+			<version>${jasper.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>javax.servlet.jsp.jstl</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+	</dependencies>
+</project>

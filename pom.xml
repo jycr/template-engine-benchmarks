@@ -2,363 +2,159 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<name>Template Benchmark</name>
-	<description>JMH Benchmark of Popular Template Engines</description>
+	<description>Benchmark of Popular Template Engines</description>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github</groupId>
+	<groupId>com.github.benchmark.template</groupId>
 	<artifactId>template-engine-benchmarks</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.encoding>${project.build.sourceEncoding}</maven.compiler.encoding>
 		<maven.compiler.source>${maven.compiler.target}</maven.compiler.source>
-		<jmh.version>1.15</jmh.version>
 		<uberjar.name>benchmarks</uberjar.name>
-		<rocker.version>0.13.1</rocker.version>
-		<jasper.version>8.0.38</jasper.version>
 		<generated-sources>${project.build.directory}/generated-sources</generated-sources>
 		<template-dir>${project.basedir}/src/main/resources</template-dir>
+		<scala.compat.version>2.11</scala.compat.version>
 	</properties>
 
 	<build>
-		<plugins>
-			<plugin>
-				<!-- JSP class generation -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-						<id>pre-compile-jsp</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<target>
-								<taskdef name="jasper" classname="org.apache.jasper.JspC"
-									classpathref="maven.plugin.classpath" />
-								<mkdir dir="${generated-sources}/jasper-jsp" />
-								<jasper uriroot="${template-dir}" outputDir="${generated-sources}/jasper-jsp"
-									package="com.mitchellbosecke.benchmark.jasper" trimSpaces="true"
-									validateTld="false" validateXml="true" compile="false"
-									genStringAsCharArray="true" />
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.tomcat.embed</groupId>
-						<artifactId>tomcat-embed-jasper</artifactId>
-						<version>${jasper.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.apache.tomcat.embed</groupId>
-						<artifactId>tomcat-embed-logging-juli</artifactId>
-						<version>${jasper.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>javax.servlet</groupId>
-						<artifactId>javax.servlet-api</artifactId>
-						<version>3.1.0</version>
-					</dependency>
-					<dependency>
-						<groupId>javax.servlet.jsp</groupId>
-						<artifactId>javax.servlet.jsp-api</artifactId>
-						<version>2.3.1</version>
-					</dependency>
-					<dependency>
-						<groupId>org.apache.tomcat.embed</groupId>
-						<artifactId>tomcat-embed-el</artifactId>
-						<version>${jasper.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.glassfish.web</groupId>
-						<artifactId>javax.servlet.jsp.jstl</artifactId>
-						<version>1.2.4</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<plugin>
-				<!-- Jamon class generation -->
-				<groupId>org.jamon</groupId>
-				<artifactId>jamon-maven-plugin</artifactId>
-				<version>2.4.2</version>
-				<executions>
-					<execution>
-						<id>jamon-generate-sources</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>translate</goal>
-						</goals>
-						<configuration>
-							<templateSourceDir>${template-dir}</templateSourceDir>
-							<templateOutputDir>${generated-sources}/jamon</templateOutputDir>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.12</version>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>${generated-sources}/rocker</source>
-								<source>${generated-sources}/jamon</source>
-								<source>${generated-sources}/jasper-jsp</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.fizzed</groupId>
-				<artifactId>rocker-maven-plugin</artifactId>
-				<version>${rocker.version}</version>
-				<executions>
-					<execution>
-						<id>generate-rocker-templates</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<templateDirectory>src/main/resources</templateDirectory>
-							<optimize>true</optimize>
-							<discardLogicWhitespace>true</discardLogicWhitespace>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.4.3</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<finalName>${uberjar.name}</finalName>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>org.openjdk.jmh.Main</mainClass>
-								</transformer>
-							</transformers>
-							<filters>
-								<filter>
-									<!-- Shading signed JARs will fail without this. http://stackoverflow.com/questions/999489/invalid-signature-file-when-attempting-to-run-a-jar -->
-									<artifact>*:*</artifact>
-									<excludes>
-										<exclude>META-INF/*.SF</exclude>
-										<exclude>META-INF/*.DSA</exclude>
-										<exclude>META-INF/*.RSA</exclude>
-									</excludes>
-								</filter>
-							</filters>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<!-- JSP class generation -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.8</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.12</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-shade-plugin</artifactId>
+					<version>2.4.3</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
+	<dependencyManagement>
+		<dependencies>
 
-	<dependencies>
+			<!-- template engines -->
+			<dependency>
+				<groupId>com.github.spullara.mustache.java</groupId>
+				<artifactId>compiler</artifactId>
+				<version>0.9.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>2.3.23</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity</artifactId>
+				<version>1.7</version>
+			</dependency>
+			<dependency>
+				<groupId>org.thymeleaf</groupId>
+				<artifactId>thymeleaf</artifactId>
+				<version>3.0.2.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>org.trimou</groupId>
+				<artifactId>trimou-core</artifactId>
+				<version>2.1.0.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.jknack</groupId>
+				<artifactId>handlebars</artifactId>
+				<version>4.0.6</version>
+			</dependency>
 
-		<!-- benchmarking dependencies -->
-		<dependency>
-			<groupId>org.openjdk.jmh</groupId>
-			<artifactId>jmh-core</artifactId>
-			<version>${jmh.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openjdk.jmh</groupId>
-			<artifactId>jmh-generator-annprocess</artifactId>
-			<version>${jmh.version}</version>
-			<scope>provided</scope>
-		</dependency>
+			<dependency>
+				<groupId>com.github.httl</groupId>
+				<artifactId>httl</artifactId>
+				<version>1.0.11</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy-templates</artifactId>
+				<version>2.4.7</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.saxon</groupId>
+				<artifactId>Saxon-HE</artifactId>
+				<version>9.7.0-8</version>
+			</dependency>
+			<dependency>
+				<groupId>com.migesok</groupId>
+				<artifactId>jaxb-java-time-adapters</artifactId>
+				<version>1.1.3</version>
+			</dependency>
 
-		<!-- template engines -->
-		<dependency>
-			<groupId>com.github.spullara.mustache.java</groupId>
-			<artifactId>compiler</artifactId>
-			<version>0.9.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-			<version>2.3.23</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity</artifactId>
-			<version>1.7</version>
-		</dependency>
-		<dependency>
-			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf</artifactId>
-			<version>3.0.2.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.trimou</groupId>
-			<artifactId>trimou-core</artifactId>
-			<version>2.1.0.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.jknack</groupId>
-			<artifactId>handlebars</artifactId>
-			<version>4.0.6</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fizzed</groupId>
-			<artifactId>rocker-runtime</artifactId>
-			<version>${rocker.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jamon</groupId>
-			<artifactId>jamon-runtime</artifactId>
-			<version>2.4.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.httl</groupId>
-			<artifactId>httl</artifactId>
-			<version>1.0.11</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ibeetl</groupId>
-			<artifactId>beetl</artifactId>
-			<version>2.5.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.samskivert</groupId>
-			<artifactId>jmustache</artifactId>
-			<version>1.13</version>
-		</dependency>
-		<dependency>
-			<groupId>org.rythmengine</groupId>
-			<artifactId>rythm-engine</artifactId>
-			<version>1.1.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.floreysoft</groupId>
-			<artifactId>jmte</artifactId>
-			<version>3.2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-templates</artifactId>
-			<version>2.4.7</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.saxon</groupId>
-			<artifactId>Saxon-HE</artifactId>
-			<version>9.7.0-8</version>
-		</dependency>
-		<dependency>
-			<groupId>com.migesok</groupId>
-			<artifactId>jaxb-java-time-adapters</artifactId>
-			<version>1.1.3</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>javax.servlet.jsp-api</artifactId>
-			<version>2.3.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>${jasper.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-logging-juli</artifactId>
-			<version>${jasper.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-el</artifactId>
-			<version>${jasper.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.web</groupId>
-			<artifactId>javax.servlet.jsp.jstl</artifactId>
-			<version>1.2.4</version>
-		</dependency>
-
-		<!-- Current project dependencies -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.21</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.xmlunit</groupId>
-			<artifactId>xmlunit-matchers</artifactId>
-			<version>2.2.1</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-	<profiles>
-		<profile>
-			<id>perf</id>
-			<build>
-				<plugins>
-					<plugin>
-						<executions>
-							<execution>
-								<phase>verify</phase>
-								<goals>
-									<goal>java</goal>
-								</goals>
-							</execution>
-						</executions>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<version>1.5.0</version>
-						<configuration>
-							<mainClass>org.openjdk.jmh.Main</mainClass>
-							<arguments>
-								<argument>-rf</argument>
-								<argument>csv</argument>
-								<argument>-rff</argument>
-								<argument>${project.build.directory}/jmh-result.csv</argument>
-							</arguments>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+			<!-- Current project dependencies -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-simple</artifactId>
+				<version>1.7.21</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.12</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.xmlunit</groupId>
+				<artifactId>xmlunit-matchers</artifactId>
+				<version>2.2.1</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>model</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>twirl-engine</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>jasper-engine</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>rocker-engine</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<scm>
 		<connection>scm:git:git://github.com/jycr/template-engine-benchmarks.git</connection>
 		<developerConnection>scm:git:git@github.com:jycr/template-engine-benchmarks.git</developerConnection>
 		<url>http://github.com/jycr/template-engine-benchmarks</url>
 	</scm>
+
+	<modules>
+		<module>model</module>
+		<module>precompiled-templates</module>
+		<module>benchmark-launcher</module>
+	</modules>
 </project>
